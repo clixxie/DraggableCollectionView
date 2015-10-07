@@ -92,10 +92,6 @@
                                         </view>
                                     </collectionViewCell>
                                 </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="h8o-gB-Nly" id="0Pi-Zv-H2l"/>
-                                    <outlet property="delegate" destination="h8o-gB-Nly" id="pxU-xB-Rph"/>
-                                </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -8,20 +8,42 @@
 
 import UIKit
 
-class ViewController: UIViewController, DraggableCollectionViewControllerDelegate {
+struct Photo {
+    let backgroundColor : UIColor
+    init(color: UIColor) {
+        self.backgroundColor = color
+    }
+}
+
+class ViewController: UIViewController, DraggableCollectionViewDataSource, DraggableCollectionViewControllerDelegate {
     
     @IBOutlet weak var deleteView: UIView!
+    
+    var draggableCollectionViewController: DraggableCollectionViewController?
+    
+    lazy var photos = [Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor()), Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor()), Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor())]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         for viewController in childViewControllers {
             if viewController.isKindOfClass(DraggableCollectionViewController) {
-                let draggableViewController = viewController as! DraggableCollectionViewController
-                draggableViewController.delegate = self
+                draggableCollectionViewController = (viewController as! DraggableCollectionViewController)
+                draggableCollectionViewController!.delegate = self
+                draggableCollectionViewController!.dataSource = self
+                draggableCollectionViewController!.items = photos
             }
         }
     }
+    
+    func draggableCollectionView(draggableCollectionView: DraggableCollectionView, configureCell cell: UICollectionViewCell, forIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        cell.backgroundColor = photos[indexPath.row].backgroundColor
+        return cell
+        
+    }
+    
+    // MARK: DraggableCollectionViewControllerDelegate
 
     func draggableCollectionViewController(viewController: DraggableCollectionViewController, movedToRect rect: CGRect) {
         if CGRectIntersectsRect(rect, deleteView.frame) {
@@ -36,8 +58,9 @@ class ViewController: UIViewController, DraggableCollectionViewControllerDelegat
         if CGRectIntersectsRect(deleteView.frame, viewController.collectionView.convertRect(snapshot.frame, toView: view)) {
             
             if let hiddenCell = viewController.collectionView.cellForItemAtIndexPath(indexPath) {
-                let photo = viewController.photos.removeAtIndex(indexPath.row)
-
+                let photo = photos.removeAtIndex(indexPath.row)
+                viewController.items = photos
+                
                 func batchUpdates() {
                     viewController.collectionView.deleteItemsAtIndexPaths([indexPath])
                 }

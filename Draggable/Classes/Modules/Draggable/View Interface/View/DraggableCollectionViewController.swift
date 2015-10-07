@@ -8,13 +8,6 @@
 
 import UIKit
 
-struct Photo {
-    let backgroundColor : UIColor
-    init(color: UIColor) {
-        self.backgroundColor = color
-    }
-}
-
 protocol DraggableCollectionViewControllerDelegate {
     
     func draggableCollectionViewController(viewController: DraggableCollectionViewController, movedToRect rect: CGRect)
@@ -22,14 +15,23 @@ protocol DraggableCollectionViewControllerDelegate {
     
 }
 
+protocol DraggableCollectionViewDataSource {
+    
+    func draggableCollectionView(draggableCollectionView: DraggableCollectionView, configureCell cell: UICollectionViewCell, forIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    
+}
+
 class DraggableCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DraggableCollectionViewDelegate {
 
     @IBOutlet weak var collectionView: DraggableCollectionView!
     var delegate: DraggableCollectionViewControllerDelegate?
+    var dataSource: DraggableCollectionViewDataSource? {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
-    lazy var photos = [Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor()), Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor()), Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor())]
-    
-    var currentPhoto: Photo?
+    var items: [Photo] = []
     
     var currentSnapshot: UIView?
     
@@ -40,6 +42,8 @@ class DraggableCollectionViewController: UIViewController, UICollectionViewDeleg
         super.viewDidLoad()
         
         collectionView.dragDelegate = self
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
     // MARK: UICollectionViewDataSource
@@ -49,15 +53,13 @@ class DraggableCollectionViewController: UIViewController, UICollectionViewDeleg
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count;
+        return items.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
         
-        cell.backgroundColor = photos[indexPath.row].backgroundColor
-        
-        return cell
+        return dataSource!.draggableCollectionView(collectionView as! DraggableCollectionView, configureCell: cell, forIndexPath: indexPath)
     }
     
     // MARK: DragCollectionViewDelegate
@@ -66,8 +68,8 @@ class DraggableCollectionViewController: UIViewController, UICollectionViewDeleg
         
         if let snapshot = currentSnapshot {
             
-            let photo = photos.removeAtIndex(currentIndexPath!.row)
-            photos.insert(photo, atIndex: indexPath.row)
+            let item = items.removeAtIndex(currentIndexPath!.row)
+            items.insert(item, atIndex: indexPath.row)
             
             func movedDraggedItems() {
                 collectionView.moveItemAtIndexPath(currentIndexPath!, toIndexPath: indexPath)
@@ -79,8 +81,6 @@ class DraggableCollectionViewController: UIViewController, UICollectionViewDeleg
             if let cell = collectionView.cellForItemAtIndexPath(indexPath) {
                 
                 cell.hidden = true
-                
-                currentPhoto = photos[indexPath.row]
                 
                 let snapshot = cell.snapshotViewAfterScreenUpdates(false)
                 snapshot.frame = cell.frame
@@ -116,10 +116,10 @@ class DraggableCollectionViewController: UIViewController, UICollectionViewDeleg
     
     func collectionView(collectionView: DraggableCollectionView, dragLeftIndexPath indexPath: NSIndexPath) {
         
-        let photo = photos.removeAtIndex(indexPath.row)
-        photos.append(photo)
+        let item = items.removeAtIndex(indexPath.row)
+        items.append(item)
         
-        let finalIndexPath = NSIndexPath(forRow: photos.count - 1, inSection: 0)
+        let finalIndexPath = NSIndexPath(forRow: items.count - 1, inSection: 0)
         
         func moveDraggedItem() {
             collectionView.moveItemAtIndexPath(indexPath, toIndexPath: finalIndexPath)
@@ -145,8 +145,8 @@ class DraggableCollectionViewController: UIViewController, UICollectionViewDeleg
             
             if let cell = collectionView.cellForItemAtIndexPath(lastIndexPath!), let hiddenCell = collectionView.cellForItemAtIndexPath(currentIndexPath!) {
                 
-                let photo = photos.removeAtIndex(currentIndexPath!.row)
-                photos.insert(photo, atIndex: lastIndexPath!.row)
+                let photo = items.removeAtIndex(currentIndexPath!.row)
+                items.insert(photo, atIndex: lastIndexPath!.row)
                 
                 
                 func animations() {
