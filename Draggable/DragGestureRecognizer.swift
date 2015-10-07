@@ -108,8 +108,6 @@ class DragGestureRecognizer: UIGestureRecognizer {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
         
-        // TODO: Handle multiple touch gestures
-        
         if let touch = touches.first {
             let inspectableTouch = InspectableTouch(type: .Began, location: touch.locationInView(view))
             touchesBeganHelper(inspectableTouch)
@@ -119,8 +117,6 @@ class DragGestureRecognizer: UIGestureRecognizer {
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent) {
         
-        // TODO: Handle multiple touch gestures
-        
         if let touch = touches.first {
             let inspectableTouch = InspectableTouch(type: .Moved, location: touch.locationInView(view))
             touchesMovedHelper(inspectableTouch)
@@ -129,8 +125,6 @@ class DragGestureRecognizer: UIGestureRecognizer {
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
         
-        // TODO: Handle multiple touch gestures
-        
         if let touch = touches.first {
             let inspectableTouch = InspectableTouch(type: .Ended, location: touch.locationInView(view))
             touchesEndedHelper(inspectableTouch)
@@ -138,9 +132,7 @@ class DragGestureRecognizer: UIGestureRecognizer {
     }
     
     override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent) {
-        
-        // TODO: Handle multiple touch gestures
-        
+                
         if let touch = touches.first {
             let inspectableTouch = InspectableTouch(type: .Cancelled, location: touch.locationInView(view))
             touchesCancelledHelper(inspectableTouch)
