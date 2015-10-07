@@ -80,6 +80,24 @@ class DragGestureRecognizerTests: XCTestCase {
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Possible, "")
     }
     
+    func testThatGestureDoesNotBecomeEndedIfComingFromPossibleState() {
+        
+        // GIVEN a drag gesture is in the Possible state
+        let dragGestureRecognizer = DragGestureRecognizer()
+        dragGestureRecognizer.minimumPressDuration = 1.0
+        
+        let firstTouch = InspectableTouch(type: .Began, location: CGPointZero)
+        dragGestureRecognizer.touchesBeganHelper(firstTouch)
+        XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Possible, "")
+        
+        // WHEN the touch ends before the minimum press duration has passed
+        let secondTouch = InspectableTouch(type: .Ended, location: CGPointZero)
+        dragGestureRecognizer.touchesEndedHelper(secondTouch)
+        
+        // THEN the drag gesture stays in the Possible state
+        XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Possible, "")
+    }
+    
     func testThatGestureSwitchesToCancelledState() {
         
         // GIVEN a drag gesture in the Possible state

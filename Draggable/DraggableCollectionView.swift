@@ -62,7 +62,9 @@ class DraggableCollectionView: UICollectionView {
             dragDelegate?.collectionView(self, dragEndedAtPoint: point)
             
         default:
-            print("Unsupported")
+
+            return
+        
         }
         
     }

@@ -188,11 +188,19 @@ class DragGestureRecognizer: UIGestureRecognizer {
                 state = .Failed
             }
             
+        case ( .Possible , .Ended ):
+            
+            invalidateTimer()
+            
         case ( _ , .Moved ):
             
             state = .Changed
             
-        case ( _ , .Ended ):
+        case ( .Began , .Ended ):
+            
+            state = .Ended
+            
+        case ( .Changed , .Ended ):
             
             state = .Ended
             
@@ -208,13 +216,18 @@ class DragGestureRecognizer: UIGestureRecognizer {
         
     }
     
-    private func delayedChangeToState(state: UIGestureRecognizerState, afterDelay delay: CFTimeInterval = 0.0) {
+    func invalidateTimer() {
         
         if let timer = currentTimer {
             let runLoop = CFRunLoopGetCurrent()
             CFRunLoopRemoveTimer(runLoop, timer, kCFRunLoopDefaultMode)
             CFRunLoopTimerInvalidate(timer)
         }
+    }
+    
+    private func delayedChangeToState(state: UIGestureRecognizerState, afterDelay delay: CFTimeInterval = 0.0) {
+        
+        invalidateTimer()
         
         let fireDate = CFAbsoluteTimeGetCurrent() + delay
         let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, 0.0, 0, 0) {
