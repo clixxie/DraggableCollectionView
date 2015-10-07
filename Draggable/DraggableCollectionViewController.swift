@@ -15,10 +15,17 @@ struct Photo {
     }
 }
 
+protocol DraggableCollectionViewControllerDelegate {
+    
+    func draggableCollectionViewController(viewController: DraggableCollectionViewController, movedToRect rect: CGRect)
+    func customAnimationForDraggableCollectionViewController(viewController: DraggableCollectionViewController, snapshot: UIView, indexPath: NSIndexPath) -> Bool
+    
+}
+
 class DraggableCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DraggableCollectionViewDelegate {
 
     @IBOutlet weak var collectionView: DraggableCollectionView!
-    @IBOutlet weak var deleteView: UIView!
+    var delegate: DraggableCollectionViewControllerDelegate?
     
     lazy var photos = [Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor()), Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor()), Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor())]
     
@@ -100,6 +107,10 @@ class DraggableCollectionViewController: UIViewController, UICollectionViewDeleg
             let height = CGRectGetHeight(snapshot.frame)
             
             snapshot.frame = CGRectMake(x, y, width, height)
+            
+            let rect = view.convertRect(snapshot.frame, toView: view.superview?.superview)
+            
+            delegate?.draggableCollectionViewController(self, movedToRect: rect)
         }
     }
     
@@ -123,55 +134,46 @@ class DraggableCollectionViewController: UIViewController, UICollectionViewDeleg
 
     func collectionView(collectionView: DraggableCollectionView, dragEndedAtPoint point: CGPoint) {
         
-        if deleteView.pointInside(deleteView.convertPoint(point, fromView: collectionView), withEvent: nil) {
-
-            if let hiddenCell = collectionView.cellForItemAtIndexPath(currentIndexPath!) {
+        if delegate!.customAnimationForDraggableCollectionViewController(self, snapshot: currentSnapshot!, indexPath: currentIndexPath!) {
+            
+            self.currentIndexPath = nil
+            self.lastIndexPath = nil
+            
+            self.currentSnapshot = nil
+            
+        } else {
+            
+            if let cell = collectionView.cellForItemAtIndexPath(lastIndexPath!), let hiddenCell = collectionView.cellForItemAtIndexPath(currentIndexPath!) {
+                
                 let photo = photos.removeAtIndex(currentIndexPath!.row)
+                photos.insert(photo, atIndex: lastIndexPath!.row)
+                
+                
+                func animations() {
+                    currentSnapshot?.frame = cell.frame
+                }
+                UIView.animateWithDuration(0.3, animations: animations) {
+                    finished in
+                    
+                    self.currentIndexPath = nil
+                    self.lastIndexPath = nil
+                    
+                    hiddenCell.hidden = false
+                    
+                    self.currentSnapshot?.removeFromSuperview()
+                    self.currentSnapshot = nil
+                }
                 
                 func batchUpdates() {
-                    collectionView.deleteItemsAtIndexPaths([currentIndexPath!])
+                    collectionView.moveItemAtIndexPath(currentIndexPath!, toIndexPath: lastIndexPath!)
                 }
                 
                 collectionView.performBatchUpdates(batchUpdates) {
                     finished in
                 }
-                
-                self.currentIndexPath = nil
-                self.lastIndexPath = nil
-                
-                self.currentSnapshot?.removeFromSuperview()
-                self.currentSnapshot = nil
-            }
-        } else if let cell = collectionView.cellForItemAtIndexPath(lastIndexPath!), let hiddenCell = collectionView.cellForItemAtIndexPath(currentIndexPath!) {
-            
-            let photo = photos.removeAtIndex(currentIndexPath!.row)
-            photos.insert(photo, atIndex: lastIndexPath!.row)
-            
-            
-            func animations() {
-                currentSnapshot?.frame = cell.frame
-            }
-            UIView.animateWithDuration(0.3, animations: animations) {
-                finished in
-                
-                self.currentIndexPath = nil
-                self.lastIndexPath = nil
-                
-                hiddenCell.hidden = false
-                
-                self.currentSnapshot?.removeFromSuperview()
-                self.currentSnapshot = nil
             }
             
-            func batchUpdates() {
-                collectionView.moveItemAtIndexPath(currentIndexPath!, toIndexPath: lastIndexPath!)
-            }
-            
-            collectionView.performBatchUpdates(batchUpdates) {
-                finished in
-            }
         }
     }
-    
 }
 

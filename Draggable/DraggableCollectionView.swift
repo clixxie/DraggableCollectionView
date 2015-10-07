@@ -66,9 +66,7 @@ class DraggableCollectionView: UICollectionView {
             return
         
         }
-        
     }
-
 }
 
 

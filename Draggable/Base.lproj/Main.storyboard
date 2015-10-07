@@ -3,12 +3,13 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Draggable Collection View Controller-->
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="DraggableCollectionViewController" customModule="Draggable" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Draggable" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -25,12 +26,55 @@
                                 <rect key="frame" x="20" y="462" width="560" height="118"/>
                                 <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KBk-bk-lh6" customClass="DraggableCollectionView" customModule="Draggable" customModuleProvider="target">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vEh-1x-qDN">
                                 <rect key="frame" x="20" y="28" width="560" height="300"/>
+                                <connections>
+                                    <segue destination="h8o-gB-Nly" kind="embed" id="EdC-Wd-Eco"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rUg-S7-iAU" firstAttribute="top" secondItem="4Wt-dQ-fGW" secondAttribute="bottom" constant="8" id="3Ug-sm-6rb"/>
+                            <constraint firstItem="4Wt-dQ-fGW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="KZE-lh-Dz1"/>
+                            <constraint firstItem="vEh-1x-qDN" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="L4M-CY-Imh"/>
+                            <constraint firstItem="vEh-1x-qDN" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="MYe-CU-GvI"/>
+                            <constraint firstItem="rUg-S7-iAU" firstAttribute="top" secondItem="4Wt-dQ-fGW" secondAttribute="bottom" constant="8" id="ZGD-x8-MkF"/>
+                            <constraint firstItem="4Wt-dQ-fGW" firstAttribute="top" secondItem="vEh-1x-qDN" secondAttribute="bottom" constant="8" id="cSg-fU-E7Q"/>
+                            <constraint firstItem="vEh-1x-qDN" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="cwy-c4-TfU"/>
+                            <constraint firstItem="rUg-S7-iAU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="efr-G6-qrI"/>
+                            <constraint firstItem="4Wt-dQ-fGW" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="gsp-1a-ej0"/>
+                            <constraint firstItem="rUg-S7-iAU" firstAttribute="height" secondItem="4Wt-dQ-fGW" secondAttribute="height" id="kmx-PV-w4Q"/>
+                            <constraint firstItem="vEh-1x-qDN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="nwx-YC-LkV"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rUg-S7-iAU" secondAttribute="bottom" constant="20" id="q1O-ZD-Elp"/>
+                            <constraint firstItem="rUg-S7-iAU" firstAttribute="top" secondItem="4Wt-dQ-fGW" secondAttribute="bottom" constant="8" id="xGe-t5-ACf"/>
+                            <constraint firstItem="rUg-S7-iAU" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="xh6-2p-d8l"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="xGe-t5-ACf"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="deleteView" destination="4Wt-dQ-fGW" id="S0D-IM-m3j"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="352" y="364"/>
+        </scene>
+        <!--Draggable Collection View Controller-->
+        <scene sceneID="2XX-PD-4dE">
+            <objects>
+                <viewController id="h8o-gB-Nly" customClass="DraggableCollectionViewController" customModule="Draggable" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jgI-Ii-c4L">
+                        <rect key="frame" x="0.0" y="0.0" width="560" height="300"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KBk-bk-lh6" customClass="DraggableCollectionView" customModule="Draggable" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="560" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="2Mc-oh-Yz7"/>
-                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ieu-Ms-zfz">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -49,48 +93,26 @@
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="XEA-9Z-Jtv"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="3qD-mz-aIn"/>
+                                    <outlet property="dataSource" destination="h8o-gB-Nly" id="0Pi-Zv-H2l"/>
+                                    <outlet property="delegate" destination="h8o-gB-Nly" id="pxU-xB-Rph"/>
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="rUg-S7-iAU" firstAttribute="height" secondItem="4Wt-dQ-fGW" secondAttribute="height" id="6wF-Lf-EfZ"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="4Wt-dQ-fGW" secondAttribute="leading" id="JE6-ZO-dXK"/>
-                            <constraint firstItem="KBk-bk-lh6" firstAttribute="trailing" secondItem="4Wt-dQ-fGW" secondAttribute="trailing" id="O0f-nL-0JS"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="rUg-S7-iAU" secondAttribute="trailing" id="QHk-Zt-qYa"/>
-                            <constraint firstItem="4Wt-dQ-fGW" firstAttribute="top" secondItem="KBk-bk-lh6" secondAttribute="bottom" constant="8" symbolic="YES" id="Vcj-Ls-uB7"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="4Wt-dQ-fGW" secondAttribute="trailing" id="WgY-pJ-bPO"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rUg-S7-iAU" secondAttribute="bottom" constant="20" id="fxH-AY-Zhg"/>
-                            <constraint firstItem="KBk-bk-lh6" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="gYT-P0-bOa"/>
-                            <constraint firstItem="KBk-bk-lh6" firstAttribute="leading" secondItem="4Wt-dQ-fGW" secondAttribute="leading" id="rVt-D4-A2D"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="rUg-S7-iAU" secondAttribute="leading" id="t1F-fp-EXm"/>
-                            <constraint firstItem="rUg-S7-iAU" firstAttribute="top" secondItem="4Wt-dQ-fGW" secondAttribute="bottom" constant="8" id="xGe-t5-ACf"/>
+                            <constraint firstItem="KBk-bk-lh6" firstAttribute="leading" secondItem="jgI-Ii-c4L" secondAttribute="leading" id="9v0-Un-74i"/>
+                            <constraint firstAttribute="trailing" secondItem="KBk-bk-lh6" secondAttribute="trailing" id="Jl8-Rx-0fU"/>
+                            <constraint firstItem="KBk-bk-lh6" firstAttribute="top" secondItem="jgI-Ii-c4L" secondAttribute="top" id="NzM-6k-Bx3"/>
+                            <constraint firstAttribute="bottom" secondItem="KBk-bk-lh6" secondAttribute="bottom" id="ihu-F1-Y0c"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="collectionView" destination="KBk-bk-lh6" id="KCT-UY-p7D"/>
-                        <outlet property="deleteView" destination="4Wt-dQ-fGW" id="S0D-IM-m3j"/>
+                        <outlet property="collectionView" destination="KBk-bk-lh6" id="sS1-TK-7kh"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rmy-fP-f0e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305" y="352"/>
-        </scene>
-        <!--Draggable Collection View Controller-->
-        <scene sceneID="CoG-AW-rbc">
-            <objects>
-                <viewController id="WZa-Ca-5K2" customClass="DraggableCollectionViewController" customModule="Draggable" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="LSf-jb-Ikr">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="v5s-AA-ZeL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="305" y="947"/>
+            <point key="canvasLocation" x="352" y="970"/>
         </scene>
     </scenes>
 </document>
