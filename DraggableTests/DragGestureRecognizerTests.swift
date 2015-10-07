@@ -21,7 +21,7 @@ class DragGestureRecognizerTests: XCTestCase {
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Possible, "")
         
         // WHEN the touch starts and ends before the minimum press duration passes
-        let touch = InspectableTouch(location: CGPointZero)
+        let touch = InspectableTouch(type: .Began, location: CGPointZero)
         dragGestureRecognizer.touchesBeganHelper(touch)
         
         // THEN the drag gesture stays in the Possible state
@@ -36,7 +36,7 @@ class DragGestureRecognizerTests: XCTestCase {
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Possible, "")
         
         // WHEN the minimum press duration passes
-        let touch = InspectableTouch(location: CGPointZero)
+        let touch = InspectableTouch(type: .Began, location: CGPointZero)
         dragGestureRecognizer.touchesBeganHelper(touch)
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false)
         
@@ -50,12 +50,12 @@ class DragGestureRecognizerTests: XCTestCase {
         let dragGestureRecognizer = DragGestureRecognizer()
         dragGestureRecognizer.minimumPressDuration = 1.0
         
-        let firstTouch = InspectableTouch(location: CGPointZero)
+        let firstTouch = InspectableTouch(type: .Began, location: CGPointZero)
         dragGestureRecognizer.touchesBeganHelper(firstTouch)
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Possible, "")
         
         // WHEN the touch starts and moves more than the allowable distance before the minimum press duration passes
-        let secondTouch = InspectableTouch(location: CGPointMake(20.0, 20.0))
+        let secondTouch = InspectableTouch(type: .Moved, location: CGPointMake(20.0, 20.0))
         dragGestureRecognizer.touchesMovedHelper(secondTouch)
         
         // THEN the drag gesture enters the Failed state
@@ -68,12 +68,12 @@ class DragGestureRecognizerTests: XCTestCase {
         let dragGestureRecognizer = DragGestureRecognizer()
         dragGestureRecognizer.minimumPressDuration = 1.0
         
-        let firstTouch = InspectableTouch(location: CGPointZero)
+        let firstTouch = InspectableTouch(type: .Began, location: CGPointZero)
         dragGestureRecognizer.touchesBeganHelper(firstTouch)
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Possible, "")
         
         // WHEN the touch starts and moves less than the allowable distance before the minimum press duration passes
-        let secondTouch = InspectableTouch(location: CGPointMake(5.0, 5.0))
+        let secondTouch = InspectableTouch(type: .Moved, location: CGPointMake(5.0, 5.0))
         dragGestureRecognizer.touchesMovedHelper(secondTouch)
         
         // THEN the drag gesture stays in the Possible state
@@ -86,12 +86,13 @@ class DragGestureRecognizerTests: XCTestCase {
         let dragGestureRecognizer = DragGestureRecognizer()
         dragGestureRecognizer.minimumPressDuration = 1.0
         
-        let touch = InspectableTouch(location: CGPointZero)
-        dragGestureRecognizer.touchesBeganHelper(touch)
+        let firstTouch = InspectableTouch(type: .Began, location: CGPointZero)
+        dragGestureRecognizer.touchesBeganHelper(firstTouch)
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Possible, "")
         
         // WHEN the touch cancels before the minimum press duration passes
-        dragGestureRecognizer.touchesCancelledHelper(touch)
+        let secondTouch = InspectableTouch(type: .Cancelled, location: CGPointZero)
+        dragGestureRecognizer.touchesCancelledHelper(secondTouch)
         
         // THEN the drag gesture enters the Cancelled state
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Cancelled, "")
@@ -105,13 +106,14 @@ class DragGestureRecognizerTests: XCTestCase {
         let dragGestureRecognizer = DragGestureRecognizer()
         dragGestureRecognizer.minimumPressDuration = 0.0
         
-        let touch = InspectableTouch(location: CGPointZero)
-        dragGestureRecognizer.touchesBeganHelper(touch)
+        let firstTouch = InspectableTouch(type: .Began, location: CGPointZero)
+        dragGestureRecognizer.touchesBeganHelper(firstTouch)
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false)
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Began, "")
         
         // WHEN the touch moves
-        dragGestureRecognizer.touchesMovedHelper(touch)
+        let secondTouch = InspectableTouch(type: .Moved, location: CGPointZero)
+        dragGestureRecognizer.touchesMovedHelper(secondTouch)
         
         // THEN the drag gesture enters the Changed state
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Changed, "")
@@ -123,14 +125,15 @@ class DragGestureRecognizerTests: XCTestCase {
         let dragGestureRecognizer = DragGestureRecognizer()
         dragGestureRecognizer.minimumPressDuration = 0.0
         
-        let touch = InspectableTouch(location: CGPointZero)
-        dragGestureRecognizer.touchesBeganHelper(touch)
+        let firstTouch = InspectableTouch(type: .Began, location: CGPointZero)
+        dragGestureRecognizer.touchesBeganHelper(firstTouch)
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false)
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Began, "")
         
         // WHEN the touch ends
-        dragGestureRecognizer.touchesEndedHelper(touch)
-
+        let secondTouch = InspectableTouch(type: .Ended, location: CGPointZero)
+        dragGestureRecognizer.touchesEndedHelper(secondTouch)
+        
         // THEN then drag gesture enters the Ended state
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Ended, "")
     }
@@ -141,13 +144,14 @@ class DragGestureRecognizerTests: XCTestCase {
         let dragGestureRecognizer = DragGestureRecognizer()
         dragGestureRecognizer.minimumPressDuration = 0.0
         
-        let touch = InspectableTouch(location: CGPointZero)
-        dragGestureRecognizer.touchesBeganHelper(touch)
+        let firstTouch = InspectableTouch(type: .Began, location: CGPointZero)
+        dragGestureRecognizer.touchesBeganHelper(firstTouch)
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false)
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Began, "")
         
         // WHEN the touch cancels
-        dragGestureRecognizer.touchesCancelledHelper(touch)
+        let secondTouch = InspectableTouch(type: .Cancelled, location: CGPointZero)
+        dragGestureRecognizer.touchesCancelledHelper(secondTouch)
 
         // THEN the drag gesture enters the Cancelled state
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Cancelled, "")
@@ -161,14 +165,15 @@ class DragGestureRecognizerTests: XCTestCase {
         let dragGestureRecognizer = DragGestureRecognizer()
         dragGestureRecognizer.minimumPressDuration = 0.0
         
-        let touch = InspectableTouch(location: CGPointZero)
-        dragGestureRecognizer.touchesBeganHelper(touch)
+        let firstTouch = InspectableTouch(type: .Began, location: CGPointZero)
+        dragGestureRecognizer.touchesBeganHelper(firstTouch)
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false)
-        dragGestureRecognizer.touchesMovedHelper(touch)
+        let secondTouch = InspectableTouch(type: .Moved, location: CGPointZero)
+        dragGestureRecognizer.touchesMovedHelper(secondTouch)
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Changed, "")
         
         // WHEN the touch moves
-        dragGestureRecognizer.touchesMovedHelper(touch)
+        dragGestureRecognizer.touchesMovedHelper(secondTouch)
         
         // THEN the drag gesture enters the Changed state
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Changed, "")
@@ -180,14 +185,16 @@ class DragGestureRecognizerTests: XCTestCase {
         let dragGestureRecognizer = DragGestureRecognizer()
         dragGestureRecognizer.minimumPressDuration = 0.0
         
-        let touch = InspectableTouch(location: CGPointZero)
-        dragGestureRecognizer.touchesBeganHelper(touch)
+        let firstTouch = InspectableTouch(type: .Began, location: CGPointZero)
+        dragGestureRecognizer.touchesBeganHelper(firstTouch)
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false)
-        dragGestureRecognizer.touchesMovedHelper(touch)
+        let secondTouch = InspectableTouch(type: .Moved, location: CGPointZero)
+        dragGestureRecognizer.touchesMovedHelper(secondTouch)
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Changed, "")
         
         // WHEN the touch ends
-        dragGestureRecognizer.touchesEndedHelper(touch)
+        let thirdTouch = InspectableTouch(type: .Ended, location: CGPointZero)
+        dragGestureRecognizer.touchesEndedHelper(thirdTouch)
         
         // THEN the drag gesture enters the Ended state
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Ended, "")
@@ -199,14 +206,16 @@ class DragGestureRecognizerTests: XCTestCase {
         let dragGestureRecognizer = DragGestureRecognizer()
         dragGestureRecognizer.minimumPressDuration = 0.0
         
-        let touch = InspectableTouch(location: CGPointZero)
-        dragGestureRecognizer.touchesBeganHelper(touch)
+        let firstTouch = InspectableTouch(type: .Began, location: CGPointZero)
+        dragGestureRecognizer.touchesBeganHelper(firstTouch)
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false)
-        dragGestureRecognizer.touchesMovedHelper(touch)
+        let secondTouch = InspectableTouch(type: .Moved, location: CGPointZero)
+        dragGestureRecognizer.touchesMovedHelper(secondTouch)
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Changed, "")
         
         // WHEN the touch cancels
-        dragGestureRecognizer.touchesCancelledHelper(touch)
+        let thirdTouch = InspectableTouch(type: .Cancelled, location: CGPointZero)
+        dragGestureRecognizer.touchesCancelledHelper(thirdTouch)
         
         // THEN the drag gesture enters the Cancelled state
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Cancelled, "")
@@ -220,10 +229,11 @@ class DragGestureRecognizerTests: XCTestCase {
         let dragGestureRecognizer = DragGestureRecognizer()
         dragGestureRecognizer.minimumPressDuration = 0.0
         
-        let touch = InspectableTouch(location: CGPointZero)
-        dragGestureRecognizer.touchesBeganHelper(touch)
+        let firstTouch = InspectableTouch(type: .Began, location: CGPointZero)
+        dragGestureRecognizer.touchesBeganHelper(firstTouch)
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false)
-        dragGestureRecognizer.touchesEndedHelper(touch)
+        let secondTouch = InspectableTouch(type: .Ended, location: CGPointZero)
+        dragGestureRecognizer.touchesEndedHelper(secondTouch)
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Ended, "")
 
         //    When
@@ -244,15 +254,16 @@ class DragGestureRecognizerTests: XCTestCase {
         let dragGestureRecognizer = DragGestureRecognizer()
         dragGestureRecognizer.minimumPressDuration = 1.0
         
-        let firstTouch = InspectableTouch(location: CGPointZero)
+        let firstTouch = InspectableTouch(type: .Began, location: CGPointZero)
         dragGestureRecognizer.touchesBeganHelper(firstTouch)
         
-        let secondTouch = InspectableTouch(location: CGPointMake(20.0, 20.0))
+        let secondTouch = InspectableTouch(type: .Moved, location: CGPointMake(20.0, 20.0))
         dragGestureRecognizer.touchesMovedHelper(secondTouch)
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Failed, "")
         
         // WHEN the touch ends
-        dragGestureRecognizer.touchesEndedHelper(secondTouch)
+        let thirdTouch = InspectableTouch(type: .Ended, location: CGPointMake(20.0, 20.0))
+        dragGestureRecognizer.touchesEndedHelper(thirdTouch)
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false)
         
         // THEN the drag gesture enters the Possible state
@@ -265,15 +276,16 @@ class DragGestureRecognizerTests: XCTestCase {
         let dragGestureRecognizer = DragGestureRecognizer()
         dragGestureRecognizer.minimumPressDuration = 1.0
         
-        let firstTouch = InspectableTouch(location: CGPointZero)
+        let firstTouch = InspectableTouch(type: .Began, location: CGPointZero)
         dragGestureRecognizer.touchesBeganHelper(firstTouch)
         
-        let secondTouch = InspectableTouch(location: CGPointMake(20.0, 20.0))
+        let secondTouch = InspectableTouch(type: .Moved, location: CGPointMake(20.0, 20.0))
         dragGestureRecognizer.touchesMovedHelper(secondTouch)
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Failed, "")
         
         // WHEN the touch cancels
-        dragGestureRecognizer.touchesCancelledHelper(secondTouch)
+        let thirdTouch = InspectableTouch(type: .Cancelled, location: CGPointMake(20.0, 20.0))
+        dragGestureRecognizer.touchesCancelledHelper(thirdTouch)
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false)
         
         // THEN the drag gesture enters the Possible state
@@ -288,10 +300,11 @@ class DragGestureRecognizerTests: XCTestCase {
         let dragGestureRecognizer = DragGestureRecognizer()
         dragGestureRecognizer.minimumPressDuration = 0.0
         
-        let touch = InspectableTouch(location: CGPointZero)
-        dragGestureRecognizer.touchesBeganHelper(touch)
+        let firstTouch = InspectableTouch(type: .Began, location: CGPointZero)
+        dragGestureRecognizer.touchesBeganHelper(firstTouch)
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false)
-        dragGestureRecognizer.touchesCancelledHelper(touch)
+        let secondTouch = InspectableTouch(type: .Cancelled, location: CGPointZero)
+        dragGestureRecognizer.touchesCancelledHelper(secondTouch)
         XCTAssertEqual(dragGestureRecognizer.state, UIGestureRecognizerState.Cancelled, "")
         
         // WHEN the touch ends
@@ -313,7 +326,7 @@ class DragGestureRecognizerTests: XCTestCase {
         dragGestureRecognizer.addTarget(target, action: "action:")
         
         // WHEN the drag gesture changes state
-        let touch = InspectableTouch(location: CGPointZero)
+        let touch = InspectableTouch(type: .Began, location: CGPointZero)
         dragGestureRecognizer.touchesBeganHelper(touch)
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false)
         

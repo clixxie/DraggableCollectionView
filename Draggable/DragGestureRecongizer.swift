@@ -9,11 +9,20 @@
 import UIKit
 import UIKit.UIGestureRecognizerSubclass
 
+enum TouchType {
+    case Began
+    case Moved
+    case Ended
+    case Cancelled
+}
+
 struct InspectableTouch {
+    let type: TouchType
     let location: CGPoint
     let view: UIView?
     
-    init(location: CGPoint, inView view: UIView? = nil) {
+    init(type: TouchType, location: CGPoint, inView view: UIView? = nil) {
+        self.type = type
         self.location = location
         self.view = view
     }
@@ -38,149 +47,35 @@ class DragGestureRecognizer: UIGestureRecognizer {
             return self._state
         }
         set {
+            
             self._state = newValue
+            
             if let action = self.action, let target = self.target where newValue != .Possible {
                 UIApplication.sharedApplication().sendAction(action, to: target, from: self, forEvent: nil)
             }
-        }
-    }
-    
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
-        
-        if let touch = touches.first {
-            touchesBeganHelper(InspectableTouch(location: touch.locationInView(self.view), inView: self.view))
-        }
-        
-    }
-    
-    internal func touchesBeganHelper(touch: InspectableTouch) {
-        startingPoint = touch.location
-        translationPoint = touch.location
-        
-        let fireDate = CFAbsoluteTimeGetCurrent() + minimumPressDuration
-        let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, 0.0, 0, 0) {
-            _ in
-            if self.state == .Possible {
-                self.state = .Began
-            }
-        }
-        currentTimer = timer
-        
-        let runLoop = CFRunLoopGetCurrent()
-        CFRunLoopAddTimer(runLoop, timer, kCFRunLoopDefaultMode)
-
-    }
-    
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent) {
-        
-        if let touch = touches.first {
-            touchesMovedHelper(InspectableTouch(location: touch.locationInView(self.view), inView: self.view))
-        }
-    }
-    
-    internal func touchesMovedHelper(touch: InspectableTouch) {
-        
-        if state == .Failed {
-            return
-        }
-        
-        if state == .Possible {
-            let startX = startingPoint.x
-            let startY = startingPoint.y
             
-            let currentX: CGFloat = touch.location.x
-            let currentY: CGFloat = touch.location.y
-            
-            let dx = startX - currentX
-            let dy = startY - currentY
-            
-            if abs(dx) > allowableMovement || abs(dy) > allowableMovement {
-                state = .Failed
+            if newValue == .Ended || newValue == .Failed || newValue == .Cancelled {
                 
-                if let timer = currentTimer {
-                    let runLoop = CFRunLoopGetCurrent()
-                    CFRunLoopRemoveTimer(runLoop, timer, kCFRunLoopDefaultMode)
-                    CFRunLoopTimerInvalidate(timer)
-                }
+                delayedChangeToState(.Possible)
                 
-                let fireDate = CFAbsoluteTimeGetCurrent()
-                let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, 0.0, 0, 0) {
-                    _ in
-                    self.state = .Possible
-                }
-                
-                let runLoop = CFRunLoopGetCurrent()
-                CFRunLoopAddTimer(runLoop, timer, kCFRunLoopDefaultMode)
-            }
-        }
-        
-        if state == .Began {
-            state = .Changed
-        } else {
-            if let action = self.action, let target = self.target {
-                UIApplication.sharedApplication().sendAction(action, to: target, from: self, forEvent: nil)
             }
         }
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
-        
-        if let touch = touches.first {
-            touchesEndedHelper(InspectableTouch(location: touch.locationInView(self.view), inView: self.view))
-        }
+    // MARK: Target-Action
+    
+    // add a target/action pair. you can call this multiple times to specify multiple target/actions
+    override func addTarget(target: AnyObject, action: Selector) {
+        self.target = target
+        self.action = action
     }
     
-    internal func touchesEndedHelper(touch: InspectableTouch) {
-        
-        if state != .Failed && state != .Possible {
-            state = .Ended
-        }
-        
-        if let timer = currentTimer {
-            let runLoop = CFRunLoopGetCurrent()
-            CFRunLoopRemoveTimer(runLoop, timer, kCFRunLoopDefaultMode)
-            CFRunLoopTimerInvalidate(timer)
-        }
-        
-        let fireDate = CFAbsoluteTimeGetCurrent()
-        let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, 0.0, 0, 0) {
-            _ in
-            self.state = .Possible
-        }
-        
-        let runLoop = CFRunLoopGetCurrent()
-        CFRunLoopAddTimer(runLoop, timer, kCFRunLoopDefaultMode)
+    // remove the specified target/action pair. passing nil for target matches all targets, and the same for actions
+    override func removeTarget(target: AnyObject?, action: Selector) {
+        //
     }
     
-    override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent) {
-        
-        if let touch = touches.first {
-            touchesCancelledHelper(InspectableTouch(location: touch.locationInView(self.view), inView: self.view))
-        }
-        
-    }
-    
-    internal func touchesCancelledHelper(touch: InspectableTouch) {
-        
-        if state != .Failed {
-            state = .Cancelled
-        }
-        
-        if let timer = currentTimer {
-            let runLoop = CFRunLoopGetCurrent()
-            CFRunLoopRemoveTimer(runLoop, timer, kCFRunLoopDefaultMode)
-            CFRunLoopTimerInvalidate(timer)
-        }
-        
-        let fireDate = CFAbsoluteTimeGetCurrent()
-        let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, 0.0, 0, 0) {
-            _ in
-            self.state = .Possible
-        }
-        
-        let runLoop = CFRunLoopGetCurrent()
-        CFRunLoopAddTimer(runLoop, timer, kCFRunLoopDefaultMode)
-    }
+    // MARK: Translation
     
     // translation in the coordinate system of the specified view
     func translationInView(view: UIView?) -> CGPoint {
@@ -195,18 +90,156 @@ class DragGestureRecognizer: UIGestureRecognizer {
         translationPoint = self.view!.convertPoint(point, fromView: view)
     }
     
-    // add a target/action pair. you can call this multiple times to specify multiple target/actions
-    override func addTarget(target: AnyObject, action: Selector) {
-        self.target = target
-        self.action = action
+    // MARK: Gesture Recognizer Methods
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
+        
+        // TODO: Handle multiple touch gestures
+        
+        if let touch = touches.first {
+            let inspectableTouch = InspectableTouch(type: .Began, location: touch.locationInView(view), inView: view)
+            touchesBeganHelper(inspectableTouch)
+        }
+        
     }
     
-    // remove the specified target/action pair. passing nil for target matches all targets, and the same for actions
-    override func removeTarget(target: AnyObject?, action: Selector) {
-        //
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent) {
+        
+        // TODO: Handle multiple touch gestures
+        
+        if let touch = touches.first {
+            let inspectableTouch = InspectableTouch(type: .Moved, location: touch.locationInView(view), inView: view)
+            touchesMovedHelper(inspectableTouch)
+        }
     }
     
-//    override func locationInView(view: UIView?) -> CGPoint {
-//        return CGPointZero;
-//    }
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
+        
+        // TODO: Handle multiple touch gestures
+        
+        if let touch = touches.first {
+            let inspectableTouch = InspectableTouch(type: .Ended, location: touch.locationInView(view), inView: view)
+            touchesEndedHelper(inspectableTouch)
+        }
+    }
+    
+    override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent) {
+        
+        // TODO: Handle multiple touch gestures
+        
+        if let touch = touches.first {
+            let inspectableTouch = InspectableTouch(type: .Cancelled, location: touch.locationInView(view), inView: view)
+            touchesCancelledHelper(inspectableTouch)
+        }
+        
+    }
+    
+    // MARK: Gesture Recognizer Helper Methods
+    
+    internal func touchesBeganHelper(touch: InspectableTouch) {
+        startingPoint = touch.location
+        translationPoint = touch.location
+
+        changeStateWithTouch(touch)
+    }
+    
+    
+    internal func touchesMovedHelper(touch: InspectableTouch) {
+        
+        changeStateWithTouch(touch)
+        
+    }
+    
+    internal func touchesEndedHelper(touch: InspectableTouch) {
+        
+        changeStateWithTouch(touch)
+
+    }
+    
+    internal func touchesCancelledHelper(touch: InspectableTouch) {
+        
+        changeStateWithTouch(touch)
+
+    }
+    
+    // MARK: State Machine
+    
+    func changeStateWithTouch(touch: InspectableTouch) {
+        
+        switch (state, touch.type) {
+            
+        case ( .Possible , .Began ):
+            
+            delayedChangeToState(.Began, afterDelay: minimumPressDuration)
+            
+        case ( .Possible , .Moved ):
+            
+            let startX = startingPoint.x
+            let startY = startingPoint.y
+            
+            let currentX: CGFloat = touch.location.x
+            let currentY: CGFloat = touch.location.y
+            
+            let dx = startX - currentX
+            let dy = startY - currentY
+            
+            if abs(dx) > allowableMovement || abs(dy) > allowableMovement {
+                state = .Failed
+            }
+            
+        case ( .Began , .Moved ):
+            
+            state = .Changed
+            
+        case ( .Changed , .Moved ):
+            
+            state = .Changed
+            
+        case ( .Began , .Ended ):
+            
+            state = .Ended
+            
+        case ( .Changed , .Ended ):
+            
+            state = .Ended
+            
+        case ( .Possible , .Cancelled):
+            
+            state = .Cancelled
+            
+        case ( .Began , .Cancelled ):
+            
+            state = .Cancelled
+            
+        case ( .Changed , .Cancelled ):
+            
+            state = .Cancelled
+            
+        default:
+            
+            return
+            
+        }
+        
+    }
+    
+    func delayedChangeToState(state: UIGestureRecognizerState, afterDelay delay: CFTimeInterval = 0.0) {
+        
+        if let timer = currentTimer {
+            let runLoop = CFRunLoopGetCurrent()
+            CFRunLoopRemoveTimer(runLoop, timer, kCFRunLoopDefaultMode)
+            CFRunLoopTimerInvalidate(timer)
+        }
+        
+        let fireDate = CFAbsoluteTimeGetCurrent() + delay
+        let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, 0.0, 0, 0) {
+            _ in
+            self.state = state
+        }
+        currentTimer = timer
+        
+        let runLoop = CFRunLoopGetCurrent()
+        CFRunLoopAddTimer(runLoop, timer, kCFRunLoopDefaultMode)
+    }
+
 }
