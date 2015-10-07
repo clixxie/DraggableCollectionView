@@ -113,6 +113,7 @@
 		575D44F11BBEE9A300EBC3CF /* Draggable */ = {
 			isa = PBXGroup;
 			children = (
+				57FF2F051BC5BAFE004A929F /* Classes */,
 				575D44F21BBEE9A300EBC3CF /* AppDelegate.swift */,
 				575D44F61BBEE9A300EBC3CF /* Main.storyboard */,
 				575D44F91BBEE9A300EBC3CF /* Assets.xcassets */,
@@ -147,6 +148,117 @@
 				575D45141BBEE9A300EBC3CF /* Info.plist */,
 			);
 			path = DraggableUITests;
+			sourceTree = "<group>";
+		};
+		57FF2F051BC5BAFE004A929F /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				57FF2F061BC5BAFE004A929F /* Common */,
+				57FF2F071BC5BAFE004A929F /* Modules */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		57FF2F061BC5BAFE004A929F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		57FF2F071BC5BAFE004A929F /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				57FF2F081BC5BAFE004A929F /* Draggable */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		57FF2F081BC5BAFE004A929F /* Draggable */ = {
+			isa = PBXGroup;
+			children = (
+				57FF2F091BC5BAFE004A929F /* Application Logic */,
+				57FF2F0D1BC5BAFE004A929F /* Module Interface */,
+				57FF2F0E1BC5BAFE004A929F /* View Interface */,
+			);
+			path = Draggable;
+			sourceTree = "<group>";
+		};
+		57FF2F091BC5BAFE004A929F /* Application Logic */ = {
+			isa = PBXGroup;
+			children = (
+				57FF2F0A1BC5BAFE004A929F /* Interactor */,
+				57FF2F0B1BC5BAFE004A929F /* Manager */,
+				57FF2F0C1BC5BAFE004A929F /* Model */,
+			);
+			path = "Application Logic";
+			sourceTree = "<group>";
+		};
+		57FF2F0A1BC5BAFE004A929F /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		57FF2F0B1BC5BAFE004A929F /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		57FF2F0C1BC5BAFE004A929F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		57FF2F0D1BC5BAFE004A929F /* Module Interface */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Module Interface";
+			sourceTree = "<group>";
+		};
+		57FF2F0E1BC5BAFE004A929F /* View Interface */ = {
+			isa = PBXGroup;
+			children = (
+				57FF2F0F1BC5BAFE004A929F /* Presenter */,
+				57FF2F101BC5BAFE004A929F /* Transition */,
+				57FF2F111BC5BAFE004A929F /* View */,
+				57FF2F121BC5BAFE004A929F /* Wireframe */,
+			);
+			path = "View Interface";
+			sourceTree = "<group>";
+		};
+		57FF2F0F1BC5BAFE004A929F /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		57FF2F101BC5BAFE004A929F /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Transition;
+			sourceTree = "<group>";
+		};
+		57FF2F111BC5BAFE004A929F /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		57FF2F121BC5BAFE004A929F /* Wireframe */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Wireframe;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
