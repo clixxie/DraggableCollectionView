@@ -16,6 +16,8 @@
 		575D45131BBEE9A300EBC3CF /* DraggableUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D45121BBEE9A300EBC3CF /* DraggableUITests.swift */; };
 		575D45211BBEEDCB00EBC3CF /* DraggableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D45201BBEEDCB00EBC3CF /* DraggableCollectionView.swift */; settings = {ASSET_TAGS = (); }; };
 		575D45231BBEFBCF00EBC3CF /* DragGestureRecongizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D45221BBEFBCF00EBC3CF /* DragGestureRecongizer.swift */; settings = {ASSET_TAGS = (); }; };
+		57FF2EF91BC58FAC004A929F /* InspectableTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2EF81BC58FAC004A929F /* InspectableTouch.swift */; settings = {ASSET_TAGS = (); }; };
+		57FF2EFB1BC5903A004A929F /* TargetActionPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2EFA1BC5903A004A929F /* TargetActionPair.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		575D45141BBEE9A300EBC3CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		575D45201BBEEDCB00EBC3CF /* DraggableCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionView.swift; sourceTree = "<group>"; };
 		575D45221BBEFBCF00EBC3CF /* DragGestureRecongizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragGestureRecongizer.swift; sourceTree = "<group>"; };
+		57FF2EF81BC58FAC004A929F /* InspectableTouch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectableTouch.swift; sourceTree = "<group>"; };
+		57FF2EFA1BC5903A004A929F /* TargetActionPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetActionPair.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,8 @@
 				575D44FE1BBEE9A300EBC3CF /* Info.plist */,
 				575D45201BBEEDCB00EBC3CF /* DraggableCollectionView.swift */,
 				575D45221BBEFBCF00EBC3CF /* DragGestureRecongizer.swift */,
+				57FF2EF81BC58FAC004A929F /* InspectableTouch.swift */,
+				57FF2EFA1BC5903A004A929F /* TargetActionPair.swift */,
 			);
 			path = Draggable;
 			sourceTree = "<group>";
@@ -261,6 +267,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57FF2EF91BC58FAC004A929F /* InspectableTouch.swift in Sources */,
+				57FF2EFB1BC5903A004A929F /* TargetActionPair.swift in Sources */,
 				575D44F51BBEE9A300EBC3CF /* DraggableCollectionViewController.swift in Sources */,
 				575D44F31BBEE9A300EBC3CF /* AppDelegate.swift in Sources */,
 				575D45211BBEEDCB00EBC3CF /* DraggableCollectionView.swift in Sources */,

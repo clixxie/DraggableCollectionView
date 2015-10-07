@@ -9,37 +9,17 @@
 import UIKit
 import UIKit.UIGestureRecognizerSubclass
 
-enum TouchType {
-    case Began
-    case Moved
-    case Ended
-    case Cancelled
-}
-
-struct InspectableTouch {
-    let type: TouchType
-    let location: CGPoint
-    let view: UIView?
-    
-    init(type: TouchType, location: CGPoint, inView view: UIView? = nil) {
-        self.type = type
-        self.location = location
-        self.view = view
-    }
-}
-
 class DragGestureRecognizer: UIGestureRecognizer {
 
     var minimumPressDuration: CFTimeInterval = 0.5
     var allowableMovement: CGFloat = 10
     
-    var startingPoint: CGPoint = CGPointZero
-    var translationPoint: CGPoint = CGPointZero
+    private var startingPoint: CGPoint = CGPointZero
+    private var translationPoint: CGPoint = CGPointZero
     
-    var target: AnyObject?
-    var action: Selector?
+    private var currentTimer: CFRunLoopTimerRef?
     
-    var currentTimer: CFRunLoopTimerRef?
+    private var targetActions = Set<TargetActionPair>()
     
     private var _state: UIGestureRecognizerState = .Possible
     override var state : UIGestureRecognizerState {
@@ -50,8 +30,8 @@ class DragGestureRecognizer: UIGestureRecognizer {
             
             self._state = newValue
             
-            if let action = self.action, let target = self.target where newValue != .Possible {
-                UIApplication.sharedApplication().sendAction(action, to: target, from: self, forEvent: nil)
+            for pair in targetActions where newValue != .Possible {
+                UIApplication.sharedApplication().sendAction(pair.action, to: pair.target, from: self, forEvent: nil)
             }
             
             if newValue == .Ended || newValue == .Failed || newValue == .Cancelled {
@@ -64,15 +44,42 @@ class DragGestureRecognizer: UIGestureRecognizer {
     
     // MARK: Target-Action
     
-    // add a target/action pair. you can call this multiple times to specify multiple target/actions
     override func addTarget(target: AnyObject, action: Selector) {
-        self.target = target
-        self.action = action
+        let pair = TargetActionPair(target: target, action: action)
+        targetActions.insert(pair)
     }
     
-    // remove the specified target/action pair. passing nil for target matches all targets, and the same for actions
     override func removeTarget(target: AnyObject?, action: Selector) {
-        //
+        
+        switch ( target , action ) {
+            
+        case ( nil , nil ):
+            
+            return
+            
+        case ( _ , nil ):
+            
+            for pair in targetActions {
+                if pair.target.isEqual(target!) {
+                    targetActions.remove(pair)
+                }
+            }
+            
+        case ( nil , _ ):
+            
+            for pair in targetActions {
+                if pair.action == action {
+                    targetActions.remove(pair)
+                }
+            }
+            
+        case ( _ , _ ):
+            
+            let pair = TargetActionPair(target: target!, action: action)
+            targetActions.remove(pair)
+            
+        }
+        
     }
     
     // MARK: Translation
@@ -140,31 +147,25 @@ class DragGestureRecognizer: UIGestureRecognizer {
         startingPoint = touch.location
         translationPoint = touch.location
 
-        changeStateWithTouch(touch)
+        handleTouch(touch)
     }
     
     
     internal func touchesMovedHelper(touch: InspectableTouch) {
-        
-        changeStateWithTouch(touch)
-        
+        handleTouch(touch)
     }
     
     internal func touchesEndedHelper(touch: InspectableTouch) {
-        
-        changeStateWithTouch(touch)
-
+        handleTouch(touch)
     }
     
     internal func touchesCancelledHelper(touch: InspectableTouch) {
-        
-        changeStateWithTouch(touch)
-
+        handleTouch(touch)
     }
     
     // MARK: State Machine
     
-    func changeStateWithTouch(touch: InspectableTouch) {
+    private func handleTouch(touch: InspectableTouch) {
         
         switch (state, touch.type) {
             
@@ -187,31 +188,15 @@ class DragGestureRecognizer: UIGestureRecognizer {
                 state = .Failed
             }
             
-        case ( .Began , .Moved ):
+        case ( _ , .Moved ):
             
             state = .Changed
             
-        case ( .Changed , .Moved ):
-            
-            state = .Changed
-            
-        case ( .Began , .Ended ):
+        case ( _ , .Ended ):
             
             state = .Ended
             
-        case ( .Changed , .Ended ):
-            
-            state = .Ended
-            
-        case ( .Possible , .Cancelled):
-            
-            state = .Cancelled
-            
-        case ( .Began , .Cancelled ):
-            
-            state = .Cancelled
-            
-        case ( .Changed , .Cancelled ):
+        case ( _ , .Cancelled):
             
             state = .Cancelled
             
@@ -223,7 +208,7 @@ class DragGestureRecognizer: UIGestureRecognizer {
         
     }
     
-    func delayedChangeToState(state: UIGestureRecognizerState, afterDelay delay: CFTimeInterval = 0.0) {
+    private func delayedChangeToState(state: UIGestureRecognizerState, afterDelay delay: CFTimeInterval = 0.0) {
         
         if let timer = currentTimer {
             let runLoop = CFRunLoopGetCurrent()
