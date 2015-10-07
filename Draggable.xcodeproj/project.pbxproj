@@ -8,20 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		570C73A91BC3194F000E002D /* DragGestureRecognizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570C73A81BC3194F000E002D /* DragGestureRecognizerTests.swift */; settings = {ASSET_TAGS = (); }; };
-		575D44F31BBEE9A300EBC3CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D44F21BBEE9A300EBC3CF /* AppDelegate.swift */; };
-		575D44F51BBEE9A300EBC3CF /* DraggableCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D44F41BBEE9A300EBC3CF /* DraggableCollectionViewController.swift */; };
 		575D44F81BBEE9A300EBC3CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 575D44F61BBEE9A300EBC3CF /* Main.storyboard */; };
 		575D44FA1BBEE9A300EBC3CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 575D44F91BBEE9A300EBC3CF /* Assets.xcassets */; };
 		575D44FD1BBEE9A300EBC3CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 575D44FB1BBEE9A300EBC3CF /* LaunchScreen.storyboard */; };
 		575D45131BBEE9A300EBC3CF /* DraggableUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D45121BBEE9A300EBC3CF /* DraggableUITests.swift */; };
-		575D45211BBEEDCB00EBC3CF /* DraggableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D45201BBEEDCB00EBC3CF /* DraggableCollectionView.swift */; settings = {ASSET_TAGS = (); }; };
-		575D45231BBEFBCF00EBC3CF /* DragGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D45221BBEFBCF00EBC3CF /* DragGestureRecognizer.swift */; settings = {ASSET_TAGS = (); }; };
-		57FF2EF91BC58FAC004A929F /* InspectableTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2EF81BC58FAC004A929F /* InspectableTouch.swift */; settings = {ASSET_TAGS = (); }; };
-		57FF2EFB1BC5903A004A929F /* TargetActionPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2EFA1BC5903A004A929F /* TargetActionPair.swift */; settings = {ASSET_TAGS = (); }; };
 		57FF2EFD1BC5A2E7004A929F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2EFC1BC5A2E7004A929F /* ViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		57FF2EFF1BC5B47F004A929F /* DraggableCollectionViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2EFE1BC5B47F004A929F /* DraggableCollectionViewTests.swift */; settings = {ASSET_TAGS = (); }; };
-		57FF2F011BC5BA3D004A929F /* DraggableCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F001BC5BA3D004A929F /* DraggableCollectionPresenter.swift */; settings = {ASSET_TAGS = (); }; };
-		57FF2F031BC5BA51004A929F /* DraggableCollectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F021BC5BA51004A929F /* DraggableCollectionInteractor.swift */; settings = {ASSET_TAGS = (); }; };
+		57FF2F291BC5BB78004A929F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F141BC5BB78004A929F /* AppDelegate.swift */; settings = {ASSET_TAGS = (); }; };
+		57FF2F2A1BC5BB78004A929F /* DragGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F161BC5BB78004A929F /* DragGestureRecognizer.swift */; settings = {ASSET_TAGS = (); }; };
+		57FF2F2B1BC5BB78004A929F /* InspectableTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F171BC5BB78004A929F /* InspectableTouch.swift */; settings = {ASSET_TAGS = (); }; };
+		57FF2F2C1BC5BB78004A929F /* TargetActionPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F181BC5BB78004A929F /* TargetActionPair.swift */; settings = {ASSET_TAGS = (); }; };
+		57FF2F2D1BC5BB78004A929F /* DraggableCollectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F1D1BC5BB78004A929F /* DraggableCollectionInteractor.swift */; settings = {ASSET_TAGS = (); }; };
+		57FF2F2E1BC5BB78004A929F /* DraggableCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F231BC5BB78004A929F /* DraggableCollectionPresenter.swift */; settings = {ASSET_TAGS = (); }; };
+		57FF2F2F1BC5BB78004A929F /* DraggableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F261BC5BB78004A929F /* DraggableCollectionView.swift */; settings = {ASSET_TAGS = (); }; };
+		57FF2F301BC5BB78004A929F /* DraggableCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F271BC5BB78004A929F /* DraggableCollectionViewController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,8 +44,6 @@
 /* Begin PBXFileReference section */
 		570C73A81BC3194F000E002D /* DragGestureRecognizerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragGestureRecognizerTests.swift; sourceTree = "<group>"; };
 		575D44EF1BBEE9A300EBC3CF /* Draggable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Draggable.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		575D44F21BBEE9A300EBC3CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		575D44F41BBEE9A300EBC3CF /* DraggableCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableCollectionViewController.swift; sourceTree = "<group>"; };
 		575D44F71BBEE9A300EBC3CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		575D44F91BBEE9A300EBC3CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		575D44FC1BBEE9A300EBC3CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -55,14 +53,16 @@
 		575D450E1BBEE9A300EBC3CF /* DraggableUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DraggableUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		575D45121BBEE9A300EBC3CF /* DraggableUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableUITests.swift; sourceTree = "<group>"; };
 		575D45141BBEE9A300EBC3CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		575D45201BBEEDCB00EBC3CF /* DraggableCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionView.swift; sourceTree = "<group>"; };
-		575D45221BBEFBCF00EBC3CF /* DragGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragGestureRecognizer.swift; sourceTree = "<group>"; };
-		57FF2EF81BC58FAC004A929F /* InspectableTouch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectableTouch.swift; sourceTree = "<group>"; };
-		57FF2EFA1BC5903A004A929F /* TargetActionPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetActionPair.swift; sourceTree = "<group>"; };
 		57FF2EFC1BC5A2E7004A929F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		57FF2EFE1BC5B47F004A929F /* DraggableCollectionViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionViewTests.swift; sourceTree = "<group>"; };
-		57FF2F001BC5BA3D004A929F /* DraggableCollectionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionPresenter.swift; sourceTree = "<group>"; };
-		57FF2F021BC5BA51004A929F /* DraggableCollectionInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionInteractor.swift; sourceTree = "<group>"; };
+		57FF2F141BC5BB78004A929F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		57FF2F161BC5BB78004A929F /* DragGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragGestureRecognizer.swift; sourceTree = "<group>"; };
+		57FF2F171BC5BB78004A929F /* InspectableTouch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectableTouch.swift; sourceTree = "<group>"; };
+		57FF2F181BC5BB78004A929F /* TargetActionPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetActionPair.swift; sourceTree = "<group>"; };
+		57FF2F1D1BC5BB78004A929F /* DraggableCollectionInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionInteractor.swift; sourceTree = "<group>"; };
+		57FF2F231BC5BB78004A929F /* DraggableCollectionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionPresenter.swift; sourceTree = "<group>"; };
+		57FF2F261BC5BB78004A929F /* DraggableCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionView.swift; sourceTree = "<group>"; };
+		57FF2F271BC5BB78004A929F /* DraggableCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,20 +113,12 @@
 		575D44F11BBEE9A300EBC3CF /* Draggable */ = {
 			isa = PBXGroup;
 			children = (
-				57FF2F051BC5BAFE004A929F /* Classes */,
-				575D44F21BBEE9A300EBC3CF /* AppDelegate.swift */,
+				57FF2F131BC5BB78004A929F /* Classes */,
 				575D44F61BBEE9A300EBC3CF /* Main.storyboard */,
 				575D44F91BBEE9A300EBC3CF /* Assets.xcassets */,
 				575D44FB1BBEE9A300EBC3CF /* LaunchScreen.storyboard */,
 				575D44FE1BBEE9A300EBC3CF /* Info.plist */,
-				575D44F41BBEE9A300EBC3CF /* DraggableCollectionViewController.swift */,
-				575D45201BBEEDCB00EBC3CF /* DraggableCollectionView.swift */,
-				575D45221BBEFBCF00EBC3CF /* DragGestureRecognizer.swift */,
-				57FF2EF81BC58FAC004A929F /* InspectableTouch.swift */,
-				57FF2EFA1BC5903A004A929F /* TargetActionPair.swift */,
 				57FF2EFC1BC5A2E7004A929F /* ViewController.swift */,
-				57FF2F001BC5BA3D004A929F /* DraggableCollectionPresenter.swift */,
-				57FF2F021BC5BA51004A929F /* DraggableCollectionInteractor.swift */,
 			);
 			path = Draggable;
 			sourceTree = "<group>";
@@ -150,111 +142,119 @@
 			path = DraggableUITests;
 			sourceTree = "<group>";
 		};
-		57FF2F051BC5BAFE004A929F /* Classes */ = {
+		57FF2F131BC5BB78004A929F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				57FF2F061BC5BAFE004A929F /* Common */,
-				57FF2F071BC5BAFE004A929F /* Modules */,
+				57FF2F141BC5BB78004A929F /* AppDelegate.swift */,
+				57FF2F151BC5BB78004A929F /* Common */,
+				57FF2F191BC5BB78004A929F /* Modules */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		57FF2F061BC5BAFE004A929F /* Common */ = {
+		57FF2F151BC5BB78004A929F /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				57FF2F161BC5BB78004A929F /* DragGestureRecognizer.swift */,
+				57FF2F171BC5BB78004A929F /* InspectableTouch.swift */,
+				57FF2F181BC5BB78004A929F /* TargetActionPair.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
 		};
-		57FF2F071BC5BAFE004A929F /* Modules */ = {
+		57FF2F191BC5BB78004A929F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				57FF2F081BC5BAFE004A929F /* Draggable */,
+				57FF2F1A1BC5BB78004A929F /* Draggable */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		57FF2F081BC5BAFE004A929F /* Draggable */ = {
+		57FF2F1A1BC5BB78004A929F /* Draggable */ = {
 			isa = PBXGroup;
 			children = (
-				57FF2F091BC5BAFE004A929F /* Application Logic */,
-				57FF2F0D1BC5BAFE004A929F /* Module Interface */,
-				57FF2F0E1BC5BAFE004A929F /* View Interface */,
+				57FF2F1B1BC5BB78004A929F /* Application Logic */,
+				57FF2F201BC5BB78004A929F /* Module Interface */,
+				57FF2F211BC5BB78004A929F /* View Interface */,
 			);
 			path = Draggable;
 			sourceTree = "<group>";
 		};
-		57FF2F091BC5BAFE004A929F /* Application Logic */ = {
+		57FF2F1B1BC5BB78004A929F /* Application Logic */ = {
 			isa = PBXGroup;
 			children = (
-				57FF2F0A1BC5BAFE004A929F /* Interactor */,
-				57FF2F0B1BC5BAFE004A929F /* Manager */,
-				57FF2F0C1BC5BAFE004A929F /* Model */,
+				57FF2F1C1BC5BB78004A929F /* Interactor */,
+				57FF2F1E1BC5BB78004A929F /* Manager */,
+				57FF2F1F1BC5BB78004A929F /* Model */,
 			);
 			path = "Application Logic";
 			sourceTree = "<group>";
 		};
-		57FF2F0A1BC5BAFE004A929F /* Interactor */ = {
+		57FF2F1C1BC5BB78004A929F /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				57FF2F1D1BC5BB78004A929F /* DraggableCollectionInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
 		};
-		57FF2F0B1BC5BAFE004A929F /* Manager */ = {
+		57FF2F1E1BC5BB78004A929F /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = Manager;
 			sourceTree = "<group>";
 		};
-		57FF2F0C1BC5BAFE004A929F /* Model */ = {
+		57FF2F1F1BC5BB78004A929F /* Model */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		57FF2F0D1BC5BAFE004A929F /* Module Interface */ = {
+		57FF2F201BC5BB78004A929F /* Module Interface */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = "Module Interface";
 			sourceTree = "<group>";
 		};
-		57FF2F0E1BC5BAFE004A929F /* View Interface */ = {
+		57FF2F211BC5BB78004A929F /* View Interface */ = {
 			isa = PBXGroup;
 			children = (
-				57FF2F0F1BC5BAFE004A929F /* Presenter */,
-				57FF2F101BC5BAFE004A929F /* Transition */,
-				57FF2F111BC5BAFE004A929F /* View */,
-				57FF2F121BC5BAFE004A929F /* Wireframe */,
+				57FF2F221BC5BB78004A929F /* Presenter */,
+				57FF2F241BC5BB78004A929F /* Transition */,
+				57FF2F251BC5BB78004A929F /* View */,
+				57FF2F281BC5BB78004A929F /* Wireframe */,
 			);
 			path = "View Interface";
 			sourceTree = "<group>";
 		};
-		57FF2F0F1BC5BAFE004A929F /* Presenter */ = {
+		57FF2F221BC5BB78004A929F /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				57FF2F231BC5BB78004A929F /* DraggableCollectionPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		57FF2F101BC5BAFE004A929F /* Transition */ = {
+		57FF2F241BC5BB78004A929F /* Transition */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = Transition;
 			sourceTree = "<group>";
 		};
-		57FF2F111BC5BAFE004A929F /* View */ = {
+		57FF2F251BC5BB78004A929F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				57FF2F261BC5BB78004A929F /* DraggableCollectionView.swift */,
+				57FF2F271BC5BB78004A929F /* DraggableCollectionViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		57FF2F121BC5BAFE004A929F /* Wireframe */ = {
+		57FF2F281BC5BB78004A929F /* Wireframe */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -391,15 +391,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57FF2EF91BC58FAC004A929F /* InspectableTouch.swift in Sources */,
-				57FF2EFB1BC5903A004A929F /* TargetActionPair.swift in Sources */,
-				57FF2F011BC5BA3D004A929F /* DraggableCollectionPresenter.swift in Sources */,
-				57FF2F031BC5BA51004A929F /* DraggableCollectionInteractor.swift in Sources */,
-				575D44F51BBEE9A300EBC3CF /* DraggableCollectionViewController.swift in Sources */,
-				575D44F31BBEE9A300EBC3CF /* AppDelegate.swift in Sources */,
+				57FF2F301BC5BB78004A929F /* DraggableCollectionViewController.swift in Sources */,
+				57FF2F2F1BC5BB78004A929F /* DraggableCollectionView.swift in Sources */,
+				57FF2F2D1BC5BB78004A929F /* DraggableCollectionInteractor.swift in Sources */,
+				57FF2F291BC5BB78004A929F /* AppDelegate.swift in Sources */,
 				57FF2EFD1BC5A2E7004A929F /* ViewController.swift in Sources */,
-				575D45211BBEEDCB00EBC3CF /* DraggableCollectionView.swift in Sources */,
-				575D45231BBEFBCF00EBC3CF /* DragGestureRecognizer.swift in Sources */,
+				57FF2F2B1BC5BB78004A929F /* InspectableTouch.swift in Sources */,
+				57FF2F2E1BC5BB78004A929F /* DraggableCollectionPresenter.swift in Sources */,
+				57FF2F2C1BC5BB78004A929F /* TargetActionPair.swift in Sources */,
+				57FF2F2A1BC5BB78004A929F /* DragGestureRecognizer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
