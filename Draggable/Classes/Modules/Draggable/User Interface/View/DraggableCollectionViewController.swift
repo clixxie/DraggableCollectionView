@@ -74,9 +74,7 @@ class DraggableCollectionViewController: UIViewController, UICollectionViewDeleg
             func movedDraggedItems() {
                 collectionView.moveItemAtIndexPath(currentIndexPath!, toIndexPath: indexPath)
             }
-            collectionView.performBatchUpdates(movedDraggedItems) {
-                finished in
-            }
+            collectionView.performBatchUpdates(movedDraggedItems, completion: nil)
         } else {
             if let cell = collectionView.cellForItemAtIndexPath(indexPath) {
                 
@@ -124,9 +122,7 @@ class DraggableCollectionViewController: UIViewController, UICollectionViewDeleg
         func moveDraggedItem() {
             collectionView.moveItemAtIndexPath(indexPath, toIndexPath: finalIndexPath)
         }
-        collectionView.performBatchUpdates(moveDraggedItem) {
-            finished in
-        }
+        collectionView.performBatchUpdates(moveDraggedItem, completion: nil)
         
         currentIndexPath = finalIndexPath
 
@@ -168,9 +164,7 @@ class DraggableCollectionViewController: UIViewController, UICollectionViewDeleg
                     collectionView.moveItemAtIndexPath(currentIndexPath!, toIndexPath: lastIndexPath!)
                 }
                 
-                collectionView.performBatchUpdates(batchUpdates) {
-                    finished in
-                }
+                collectionView.performBatchUpdates(batchUpdates, completion: nil)
             }
             
         }

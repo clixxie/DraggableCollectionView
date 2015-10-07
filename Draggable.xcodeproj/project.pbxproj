@@ -18,10 +18,10 @@
 		57FF2F2B1BC5BB78004A929F /* InspectableTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F171BC5BB78004A929F /* InspectableTouch.swift */; settings = {ASSET_TAGS = (); }; };
 		57FF2F2C1BC5BB78004A929F /* TargetActionPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F181BC5BB78004A929F /* TargetActionPair.swift */; settings = {ASSET_TAGS = (); }; };
 		57FF2F2D1BC5BB78004A929F /* DraggableCollectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F1D1BC5BB78004A929F /* DraggableCollectionInteractor.swift */; settings = {ASSET_TAGS = (); }; };
-		57FF2F2E1BC5BB78004A929F /* DraggableCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F231BC5BB78004A929F /* DraggableCollectionPresenter.swift */; settings = {ASSET_TAGS = (); }; };
-		57FF2F2F1BC5BB78004A929F /* DraggableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F261BC5BB78004A929F /* DraggableCollectionView.swift */; settings = {ASSET_TAGS = (); }; };
-		57FF2F301BC5BB78004A929F /* DraggableCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F271BC5BB78004A929F /* DraggableCollectionViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		57FF2F341BC5BCB0004A929F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F331BC5BCB0004A929F /* ViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		57FF2F3D1BC5DC94004A929F /* DraggableCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F371BC5DC94004A929F /* DraggableCollectionPresenter.swift */; settings = {ASSET_TAGS = (); }; };
+		57FF2F3E1BC5DC94004A929F /* DraggableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F3A1BC5DC94004A929F /* DraggableCollectionView.swift */; settings = {ASSET_TAGS = (); }; };
+		57FF2F3F1BC5DC94004A929F /* DraggableCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F3B1BC5DC94004A929F /* DraggableCollectionViewController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,10 +59,10 @@
 		57FF2F171BC5BB78004A929F /* InspectableTouch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectableTouch.swift; sourceTree = "<group>"; };
 		57FF2F181BC5BB78004A929F /* TargetActionPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetActionPair.swift; sourceTree = "<group>"; };
 		57FF2F1D1BC5BB78004A929F /* DraggableCollectionInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionInteractor.swift; sourceTree = "<group>"; };
-		57FF2F231BC5BB78004A929F /* DraggableCollectionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionPresenter.swift; sourceTree = "<group>"; };
-		57FF2F261BC5BB78004A929F /* DraggableCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionView.swift; sourceTree = "<group>"; };
-		57FF2F271BC5BB78004A929F /* DraggableCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionViewController.swift; sourceTree = "<group>"; };
 		57FF2F331BC5BCB0004A929F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		57FF2F371BC5DC94004A929F /* DraggableCollectionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionPresenter.swift; sourceTree = "<group>"; };
+		57FF2F3A1BC5DC94004A929F /* DraggableCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionView.swift; sourceTree = "<group>"; };
+		57FF2F3B1BC5DC94004A929F /* DraggableCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,7 +173,7 @@
 			children = (
 				57FF2F1B1BC5BB78004A929F /* Application Logic */,
 				57FF2F201BC5BB78004A929F /* Module Interface */,
-				57FF2F211BC5BB78004A929F /* View Interface */,
+				57FF2F351BC5DC94004A929F /* User Interface */,
 			);
 			path = Draggable;
 			sourceTree = "<group>";
@@ -217,48 +217,6 @@
 			path = "Module Interface";
 			sourceTree = "<group>";
 		};
-		57FF2F211BC5BB78004A929F /* View Interface */ = {
-			isa = PBXGroup;
-			children = (
-				57FF2F221BC5BB78004A929F /* Presenter */,
-				57FF2F241BC5BB78004A929F /* Transition */,
-				57FF2F251BC5BB78004A929F /* View */,
-				57FF2F281BC5BB78004A929F /* Wireframe */,
-			);
-			path = "View Interface";
-			sourceTree = "<group>";
-		};
-		57FF2F221BC5BB78004A929F /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				57FF2F231BC5BB78004A929F /* DraggableCollectionPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		57FF2F241BC5BB78004A929F /* Transition */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Transition;
-			sourceTree = "<group>";
-		};
-		57FF2F251BC5BB78004A929F /* View */ = {
-			isa = PBXGroup;
-			children = (
-				57FF2F261BC5BB78004A929F /* DraggableCollectionView.swift */,
-				57FF2F271BC5BB78004A929F /* DraggableCollectionViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		57FF2F281BC5BB78004A929F /* Wireframe */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Wireframe;
-			sourceTree = "<group>";
-		};
 		57FF2F311BC5BC75004A929F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +233,48 @@
 				575D44FE1BBEE9A300EBC3CF /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		57FF2F351BC5DC94004A929F /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				57FF2F361BC5DC94004A929F /* Presenter */,
+				57FF2F381BC5DC94004A929F /* Transition */,
+				57FF2F391BC5DC94004A929F /* View */,
+				57FF2F3C1BC5DC94004A929F /* Wireframe */,
+			);
+			path = "User Interface";
+			sourceTree = "<group>";
+		};
+		57FF2F361BC5DC94004A929F /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				57FF2F371BC5DC94004A929F /* DraggableCollectionPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		57FF2F381BC5DC94004A929F /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Transition;
+			sourceTree = "<group>";
+		};
+		57FF2F391BC5DC94004A929F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				57FF2F3A1BC5DC94004A929F /* DraggableCollectionView.swift */,
+				57FF2F3B1BC5DC94004A929F /* DraggableCollectionViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		57FF2F3C1BC5DC94004A929F /* Wireframe */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Wireframe;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -407,13 +407,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57FF2F301BC5BB78004A929F /* DraggableCollectionViewController.swift in Sources */,
-				57FF2F2F1BC5BB78004A929F /* DraggableCollectionView.swift in Sources */,
+				57FF2F3F1BC5DC94004A929F /* DraggableCollectionViewController.swift in Sources */,
+				57FF2F3E1BC5DC94004A929F /* DraggableCollectionView.swift in Sources */,
 				57FF2F2D1BC5BB78004A929F /* DraggableCollectionInteractor.swift in Sources */,
 				57FF2F341BC5BCB0004A929F /* ViewController.swift in Sources */,
 				57FF2F291BC5BB78004A929F /* AppDelegate.swift in Sources */,
 				57FF2F2B1BC5BB78004A929F /* InspectableTouch.swift in Sources */,
-				57FF2F2E1BC5BB78004A929F /* DraggableCollectionPresenter.swift in Sources */,
+				57FF2F3D1BC5DC94004A929F /* DraggableCollectionPresenter.swift in Sources */,
 				57FF2F2C1BC5BB78004A929F /* TargetActionPair.swift in Sources */,
 				57FF2F2A1BC5BB78004A929F /* DragGestureRecognizer.swift in Sources */,
 			);
