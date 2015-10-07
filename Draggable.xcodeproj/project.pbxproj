@@ -20,6 +20,8 @@
 		57FF2EFB1BC5903A004A929F /* TargetActionPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2EFA1BC5903A004A929F /* TargetActionPair.swift */; settings = {ASSET_TAGS = (); }; };
 		57FF2EFD1BC5A2E7004A929F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2EFC1BC5A2E7004A929F /* ViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		57FF2EFF1BC5B47F004A929F /* DraggableCollectionViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2EFE1BC5B47F004A929F /* DraggableCollectionViewTests.swift */; settings = {ASSET_TAGS = (); }; };
+		57FF2F011BC5BA3D004A929F /* DraggableCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F001BC5BA3D004A929F /* DraggableCollectionPresenter.swift */; settings = {ASSET_TAGS = (); }; };
+		57FF2F031BC5BA51004A929F /* DraggableCollectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F021BC5BA51004A929F /* DraggableCollectionInteractor.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		57FF2EFA1BC5903A004A929F /* TargetActionPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetActionPair.swift; sourceTree = "<group>"; };
 		57FF2EFC1BC5A2E7004A929F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		57FF2EFE1BC5B47F004A929F /* DraggableCollectionViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionViewTests.swift; sourceTree = "<group>"; };
+		57FF2F001BC5BA3D004A929F /* DraggableCollectionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionPresenter.swift; sourceTree = "<group>"; };
+		57FF2F021BC5BA51004A929F /* DraggableCollectionInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,8 @@
 				57FF2EF81BC58FAC004A929F /* InspectableTouch.swift */,
 				57FF2EFA1BC5903A004A929F /* TargetActionPair.swift */,
 				57FF2EFC1BC5A2E7004A929F /* ViewController.swift */,
+				57FF2F001BC5BA3D004A929F /* DraggableCollectionPresenter.swift */,
+				57FF2F021BC5BA51004A929F /* DraggableCollectionInteractor.swift */,
 			);
 			path = Draggable;
 			sourceTree = "<group>";
@@ -275,6 +281,8 @@
 			files = (
 				57FF2EF91BC58FAC004A929F /* InspectableTouch.swift in Sources */,
 				57FF2EFB1BC5903A004A929F /* TargetActionPair.swift in Sources */,
+				57FF2F011BC5BA3D004A929F /* DraggableCollectionPresenter.swift in Sources */,
+				57FF2F031BC5BA51004A929F /* DraggableCollectionInteractor.swift in Sources */,
 				575D44F51BBEE9A300EBC3CF /* DraggableCollectionViewController.swift in Sources */,
 				575D44F31BBEE9A300EBC3CF /* AppDelegate.swift in Sources */,
 				57FF2EFD1BC5A2E7004A929F /* ViewController.swift in Sources */,
