@@ -1,5 +1,5 @@
 //
-//  DragGestureRecongizer.swift
+//  DragGestureRecognizer.swift
 //  Draggable
 //
 //  Created by Andrew Copp on 10/2/15.
