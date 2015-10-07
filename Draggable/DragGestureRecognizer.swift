@@ -14,8 +14,8 @@ class DragGestureRecognizer: UIGestureRecognizer {
     var minimumPressDuration: CFTimeInterval = 0.5
     var allowableMovement: CGFloat = 10
     
-    private var startingPoint: CGPoint = CGPointZero
-    private var translationPoint: CGPoint = CGPointZero
+    private var startingPoint: CGPoint?
+    private var translationPoint: CGPoint?
     
     private var currentTimer: CFRunLoopTimerRef?
     
@@ -30,8 +30,15 @@ class DragGestureRecognizer: UIGestureRecognizer {
             
             self._state = newValue
             
-            for pair in targetActions where newValue != .Possible {
-                UIApplication.sharedApplication().sendAction(pair.action, to: pair.target, from: self, forEvent: nil)
+            if newValue != .Possible {
+                
+                for pair in targetActions {
+                    UIApplication.sharedApplication().sendAction(pair.action, to: pair.target, from: self, forEvent: nil)
+                }
+            } else {
+                
+                startingPoint = nil
+                translationPoint = nil
             }
             
             if newValue == .Ended || newValue == .Failed || newValue == .Cancelled {
@@ -87,7 +94,7 @@ class DragGestureRecognizer: UIGestureRecognizer {
     // translation in the coordinate system of the specified view
     func translationInView(view: UIView?) -> CGPoint {
         let currentPoint = locationInView(view)
-        let delta = CGPointMake(currentPoint.x - translationPoint.x, currentPoint.y - translationPoint.y)
+        let delta = CGPointMake(currentPoint.x - translationPoint!.x, currentPoint.y - translationPoint!.y)
         return self.view!.convertPoint(delta, toView: view)
     }
     
@@ -175,8 +182,8 @@ class DragGestureRecognizer: UIGestureRecognizer {
             
         case ( .Possible , .Moved ):
             
-            let startX = startingPoint.x
-            let startY = startingPoint.y
+            let startX = startingPoint!.x
+            let startY = startingPoint!.y
             
             let currentX: CGFloat = touch.location.x
             let currentY: CGFloat = touch.location.y
