@@ -11,12 +11,10 @@ import UIKit
 struct InspectableTouch {
     let type: TouchType
     let location: CGPoint
-    let view: UIView?
     
-    init(type: TouchType, location: CGPoint, inView view: UIView? = nil) {
+    init(type: TouchType, location: CGPoint) {
         self.type = type
         self.location = location
-        self.view = view
     }
     
     enum TouchType {
