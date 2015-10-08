@@ -52,7 +52,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // MARK: DraggableCollectionPresenterDelegate
     
     func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, willMoveItemAtIndexPath indexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-        let photo = photos.removeAtIndex(indexPath.row - 1)
+        let photo = photos.removeAtIndex(indexPath.row)
         let index = indexPath.row < toIndexPath.row ? toIndexPath.row - 1 : toIndexPath.row
         photos.insert(photo, atIndex: index)
     }

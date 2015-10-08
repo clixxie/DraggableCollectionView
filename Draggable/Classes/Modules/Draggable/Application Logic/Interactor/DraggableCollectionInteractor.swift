@@ -15,12 +15,15 @@ class DraggableCollectionInteractor: NSObject, DraggableCollectionInteractorInpu
     var startingIndexPath: NSIndexPath?
     var currentIndexPath: NSIndexPath?
     
+    let anchored = true
     
     func processDragGesture(gesture: DragGestureRecognizer, atIndexPath indexPath: NSIndexPath?) {
         switch gesture.state {
         case .Began:
 
-            guard let i = indexPath else {
+            let finalIndexPath = NSIndexPath(forRow: output!.numberOfElements(), inSection: 0)
+            
+            guard let i = indexPath where indexPath != finalIndexPath && anchored else {
                 gesture.enabled = false
                 gesture.enabled = true
                 return

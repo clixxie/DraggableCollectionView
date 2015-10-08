@@ -79,8 +79,6 @@ class DraggableCollectionPresenter: NSObject, DraggableCollectionModuleInterface
             destinationIndexPath = startingIndexPath
 
         }
-    
-        delegate?.draggableCollectionModuleInterface(self, willMoveItemAtIndexPath: currentIndexPath, toIndexPath: destinationIndexPath!)
         
         let cell = collectionView?.cellForItemAtIndexPath(destinationIndexPath!)
         
@@ -106,6 +104,10 @@ class DraggableCollectionPresenter: NSObject, DraggableCollectionModuleInterface
         UIView.animateWithDuration(0.3, animations: animations!, completion: completion)
         
         if batchUpdates == nil {
+            
+            delegate?.draggableCollectionModuleInterface(self, willMoveItemAtIndexPath: currentIndexPath, toIndexPath: destinationIndexPath!)
+
+            
             func defaultBatchUpdates() {
                 collectionView?.moveItemAtIndexPath(currentIndexPath, toIndexPath: destinationIndexPath!)
             }
