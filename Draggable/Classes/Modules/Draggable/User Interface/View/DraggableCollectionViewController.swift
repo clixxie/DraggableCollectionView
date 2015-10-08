@@ -21,7 +21,7 @@ protocol DraggableCollectionViewDataSource {
     
 }
 
-class DraggableCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DraggableCollectionViewDelegate {
+class DraggableCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DraggableCollectionViewDelegate, DraggableCollectionUserInterface {
 
     @IBOutlet weak var collectionView: DraggableCollectionView!
     var delegate: DraggableCollectionViewControllerDelegate?
@@ -30,6 +30,8 @@ class DraggableCollectionViewController: UIViewController, UICollectionViewDeleg
             collectionView.reloadData()
         }
     }
+    
+    let eventHandler: DraggableCollectionModuleInterface = DraggableCollectionPresenter()
     
     var items: [Photo] = []
     
@@ -63,6 +65,10 @@ class DraggableCollectionViewController: UIViewController, UICollectionViewDeleg
     }
     
     // MARK: DragCollectionViewDelegate
+    
+    func collectionView(collectionView: DraggableCollectionView, point: CGPoint, indexPath: NSIndexPath?) {
+//        eventHandler.dragAtPoint(point, indexPath: indexPath)
+    }
     
     func collectionView(collectionView: DraggableCollectionView, dragEnteredIndexPath indexPath: NSIndexPath) {
         

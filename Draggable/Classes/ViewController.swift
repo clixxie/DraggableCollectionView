@@ -15,69 +15,69 @@ struct Photo {
     }
 }
 
-class ViewController: UIViewController, DraggableCollectionViewDataSource, DraggableCollectionViewControllerDelegate {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, DraggableCollectionPresenterDelegate {
     
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var deleteView: UIView!
     
-    var draggableCollectionViewController: DraggableCollectionViewController?
+    var presenter: DraggableCollectionPresenter?
     
     lazy var photos = [Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor()), Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor()), Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor())]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for viewController in childViewControllers {
-            if viewController.isKindOfClass(DraggableCollectionViewController) {
-                draggableCollectionViewController = (viewController as! DraggableCollectionViewController)
-                draggableCollectionViewController!.delegate = self
-                draggableCollectionViewController!.dataSource = self
-                draggableCollectionViewController!.items = photos
-            }
-        }
+        let draggableCollectionWireframe = DraggableCollectionWireframe()
+        presenter = draggableCollectionWireframe.addFunctionalityToCollectionView(collectionView, delegate: self)
     }
     
-    func draggableCollectionView(draggableCollectionView: DraggableCollectionView, configureCell cell: UICollectionViewCell, forIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return photos.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
         
         cell.backgroundColor = photos[indexPath.row].backgroundColor
+        
         return cell
-        
     }
     
-    // MARK: DraggableCollectionViewControllerDelegate
-
-    func draggableCollectionViewController(viewController: DraggableCollectionViewController, movedToRect rect: CGRect) {
-        if CGRectIntersectsRect(rect, deleteView.frame) {
-            deleteView.backgroundColor = UIColor.blackColor()
-        } else {
-            deleteView.backgroundColor = UIColor.blueColor()
-        }
+    func moveElementFromIndex(index: Int, toIndex: Int) {
+        let photo = photos.removeAtIndex(index)
+        let revisedIndex = index < toIndex ? toIndex - 1 : toIndex
+        photos.insert(photo, atIndex: revisedIndex)
     }
     
-    func customAnimationForDraggableCollectionViewController(viewController: DraggableCollectionViewController, snapshot: UIView, indexPath: NSIndexPath) -> Bool {
-        
-        if CGRectIntersectsRect(deleteView.frame, viewController.collectionView.convertRect(snapshot.frame, toView: view)) {
-            
-            if let hiddenCell = viewController.collectionView.cellForItemAtIndexPath(indexPath) {
-                let photo = photos.removeAtIndex(indexPath.row)
-                viewController.items = photos
-                
-                func batchUpdates() {
-                    viewController.collectionView.deleteItemsAtIndexPaths([indexPath])
-                }
-
-                viewController.collectionView.performBatchUpdates(batchUpdates) {
-                    finished in
-                }
-                
-                snapshot.removeFromSuperview()
-                deleteView.backgroundColor = UIColor.blueColor()
-            }
-            
-            return true
-        } else {
-            return false
-        }
-        
-    }
+//    func customAnimationForDraggableCollectionViewController(viewController: DraggableCollectionViewController, snapshot: UIView, indexPath: NSIndexPath) -> Bool {
+//        
+//        if CGRectIntersectsRect(deleteView.frame, viewController.collectionView.convertRect(snapshot.frame, toView: view)) {
+//            
+//            if let hiddenCell = viewController.collectionView.cellForItemAtIndexPath(indexPath) {
+//                let photo = photos.removeAtIndex(indexPath.row)
+//                viewController.items = photos
+//                
+//                func batchUpdates() {
+//                    viewController.collectionView.deleteItemsAtIndexPaths([indexPath])
+//                }
+//
+//                viewController.collectionView.performBatchUpdates(batchUpdates) {
+//                    finished in
+//                }
+//                
+//                snapshot.removeFromSuperview()
+//                deleteView.backgroundColor = UIColor.blueColor()
+//            }
+//            
+//            return true
+//        } else {
+//            return false
+//        }
+//        
+//    }
     
 }

@@ -26,52 +26,57 @@ class DraggableCollectionView: UICollectionView {
     func dragRecognized(gesture: DragGestureRecognizer) {
         
         let point = gesture.locationInView(self)
-                
-        switch gesture.state {
-        case .Began:
-            
-            guard let indexPath = indexPathForItemAtPoint(point) else {
-                dragGestureRecognizer.enabled = false
-                dragGestureRecognizer.enabled = true
-                return
-            }
-            
-            dragDelegate?.collectionView(self, dragEnteredIndexPath: indexPath)
-            currentIndexPath = indexPath
-            
-        case .Changed:
-            
-            let translation = gesture.translationInView(self)
-            dragDelegate?.collectionView(self, dragMovedDistance: translation)
-            gesture.setTranslation(CGPointZero, inView: self)
-            
-            if let indexPath = indexPathForItemAtPoint(point) {
-                if currentIndexPath == nil {
-                    dragDelegate?.collectionView(self, dragEnteredIndexPath: indexPath)
-                    currentIndexPath = indexPath
-                }
-            } else {
-                if let indexPath = currentIndexPath {
-                    dragDelegate?.collectionView(self, dragLeftIndexPath: indexPath)
-                    currentIndexPath = nil
-                }
-            }
-
-        case .Ended:
-            
-            dragDelegate?.collectionView(self, dragEndedAtPoint: point)
-            
-        default:
-
-            return
+        let indexPath = indexPathForItemAtPoint(point)
+        dragDelegate?.collectionView(self, point: point, indexPath: indexPath)
         
-        }
+        
+//        switch gesture.state {
+//        case .Began:
+//            
+//            guard let indexPath = indexPathForItemAtPoint(point) else {
+//                dragGestureRecognizer.enabled = false
+//                dragGestureRecognizer.enabled = true
+//                return
+//            }
+//            
+//            dragDelegate?.collectionView(self, dragEnteredIndexPath: indexPath)
+//            currentIndexPath = indexPath
+//            
+//        case .Changed:
+//            
+//            let translation = gesture.translationInView(self)
+//            dragDelegate?.collectionView(self, dragMovedDistance: translation)
+//            gesture.setTranslation(CGPointZero, inView: self)
+//            
+//            if let indexPath = indexPathForItemAtPoint(point) {
+//                if currentIndexPath == nil {
+//                    dragDelegate?.collectionView(self, dragEnteredIndexPath: indexPath)
+//                    currentIndexPath = indexPath
+//                }
+//            } else {
+//                if let indexPath = currentIndexPath {
+//                    dragDelegate?.collectionView(self, dragLeftIndexPath: indexPath)
+//                    currentIndexPath = nil
+//                }
+//            }
+//
+//        case .Ended:
+//            
+//            dragDelegate?.collectionView(self, dragEndedAtPoint: point)
+//            
+//        default:
+//
+//            return
+//        
+//        }
     }
 }
 
 
 protocol DraggableCollectionViewDelegate {
  
+    func collectionView(collectionView: DraggableCollectionView, point: CGPoint, indexPath: NSIndexPath?)
+    
     func collectionView(collectionView: DraggableCollectionView, dragEnteredIndexPath indexPath: NSIndexPath)
     func collectionView(collectionView: DraggableCollectionView, dragMovedDistance translation: CGPoint)
     func collectionView(collectionView: DraggableCollectionView, dragLeftIndexPath indexPath: NSIndexPath)

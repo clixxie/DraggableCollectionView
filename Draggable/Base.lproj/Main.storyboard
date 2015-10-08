@@ -26,54 +26,8 @@
                                 <rect key="frame" x="20" y="462" width="560" height="118"/>
                                 <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vEh-1x-qDN">
+                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KBk-bk-lh6">
                                 <rect key="frame" x="20" y="28" width="560" height="300"/>
-                                <connections>
-                                    <segue destination="h8o-gB-Nly" kind="embed" id="EdC-Wd-Eco"/>
-                                </connections>
-                            </containerView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="rUg-S7-iAU" firstAttribute="top" secondItem="4Wt-dQ-fGW" secondAttribute="bottom" constant="8" id="3Ug-sm-6rb"/>
-                            <constraint firstItem="4Wt-dQ-fGW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="KZE-lh-Dz1"/>
-                            <constraint firstItem="vEh-1x-qDN" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="L4M-CY-Imh"/>
-                            <constraint firstItem="vEh-1x-qDN" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="MYe-CU-GvI"/>
-                            <constraint firstItem="rUg-S7-iAU" firstAttribute="top" secondItem="4Wt-dQ-fGW" secondAttribute="bottom" constant="8" id="ZGD-x8-MkF"/>
-                            <constraint firstItem="4Wt-dQ-fGW" firstAttribute="top" secondItem="vEh-1x-qDN" secondAttribute="bottom" constant="8" id="cSg-fU-E7Q"/>
-                            <constraint firstItem="vEh-1x-qDN" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="cwy-c4-TfU"/>
-                            <constraint firstItem="rUg-S7-iAU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="efr-G6-qrI"/>
-                            <constraint firstItem="4Wt-dQ-fGW" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="gsp-1a-ej0"/>
-                            <constraint firstItem="rUg-S7-iAU" firstAttribute="height" secondItem="4Wt-dQ-fGW" secondAttribute="height" id="kmx-PV-w4Q"/>
-                            <constraint firstItem="vEh-1x-qDN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="nwx-YC-LkV"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rUg-S7-iAU" secondAttribute="bottom" constant="20" id="q1O-ZD-Elp"/>
-                            <constraint firstItem="rUg-S7-iAU" firstAttribute="top" secondItem="4Wt-dQ-fGW" secondAttribute="bottom" constant="8" id="xGe-t5-ACf"/>
-                            <constraint firstItem="rUg-S7-iAU" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="xh6-2p-d8l"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="xGe-t5-ACf"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <connections>
-                        <outlet property="deleteView" destination="4Wt-dQ-fGW" id="S0D-IM-m3j"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="352" y="364"/>
-        </scene>
-        <!--Draggable Collection View Controller-->
-        <scene sceneID="2XX-PD-4dE">
-            <objects>
-                <viewController id="h8o-gB-Nly" customClass="DraggableCollectionViewController" customModule="Draggable" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="jgI-Ii-c4L">
-                        <rect key="frame" x="0.0" y="0.0" width="560" height="300"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KBk-bk-lh6" customClass="DraggableCollectionView" customModule="Draggable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="560" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ieu-Ms-zfz">
                                     <size key="itemSize" width="50" height="50"/>
@@ -92,23 +46,43 @@
                                         </view>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="2gh-ke-zuX"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="YrB-Xu-KHU"/>
+                                </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="KBk-bk-lh6" firstAttribute="leading" secondItem="jgI-Ii-c4L" secondAttribute="leading" id="9v0-Un-74i"/>
-                            <constraint firstAttribute="trailing" secondItem="KBk-bk-lh6" secondAttribute="trailing" id="Jl8-Rx-0fU"/>
-                            <constraint firstItem="KBk-bk-lh6" firstAttribute="top" secondItem="jgI-Ii-c4L" secondAttribute="top" id="NzM-6k-Bx3"/>
-                            <constraint firstAttribute="bottom" secondItem="KBk-bk-lh6" secondAttribute="bottom" id="ihu-F1-Y0c"/>
+                            <constraint firstItem="rUg-S7-iAU" firstAttribute="top" secondItem="4Wt-dQ-fGW" secondAttribute="bottom" constant="8" id="3Ug-sm-6rb"/>
+                            <constraint firstItem="4Wt-dQ-fGW" firstAttribute="top" secondItem="KBk-bk-lh6" secondAttribute="bottom" constant="8" id="KJa-IF-Hoi"/>
+                            <constraint firstItem="4Wt-dQ-fGW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="KZE-lh-Dz1"/>
+                            <constraint firstItem="KBk-bk-lh6" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="ZEr-A1-Mtg"/>
+                            <constraint firstItem="rUg-S7-iAU" firstAttribute="top" secondItem="4Wt-dQ-fGW" secondAttribute="bottom" constant="8" id="ZGD-x8-MkF"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="KBk-bk-lh6" secondAttribute="leading" id="ZNt-qz-NXF"/>
+                            <constraint firstItem="KBk-bk-lh6" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="aIz-vq-kqo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="KBk-bk-lh6" secondAttribute="trailing" id="eG8-nC-c4T"/>
+                            <constraint firstItem="rUg-S7-iAU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="efr-G6-qrI"/>
+                            <constraint firstItem="4Wt-dQ-fGW" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="gsp-1a-ej0"/>
+                            <constraint firstItem="rUg-S7-iAU" firstAttribute="height" secondItem="4Wt-dQ-fGW" secondAttribute="height" id="kmx-PV-w4Q"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rUg-S7-iAU" secondAttribute="bottom" constant="20" id="q1O-ZD-Elp"/>
+                            <constraint firstItem="rUg-S7-iAU" firstAttribute="top" secondItem="4Wt-dQ-fGW" secondAttribute="bottom" constant="8" id="xGe-t5-ACf"/>
+                            <constraint firstItem="rUg-S7-iAU" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="xh6-2p-d8l"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="xGe-t5-ACf"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
-                        <outlet property="collectionView" destination="KBk-bk-lh6" id="sS1-TK-7kh"/>
+                        <outlet property="collectionView" destination="KBk-bk-lh6" id="aHw-K3-U9b"/>
+                        <outlet property="deleteView" destination="4Wt-dQ-fGW" id="S0D-IM-m3j"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rmy-fP-f0e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="352" y="970"/>
+            <point key="canvasLocation" x="352" y="364"/>
         </scene>
     </scenes>
 </document>
