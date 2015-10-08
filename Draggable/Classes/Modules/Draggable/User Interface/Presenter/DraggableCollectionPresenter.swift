@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol DraggableCollectionPresenterDataSource {
-    func numberOfElements() -> Int
-}
-
 typealias animations = (() -> Void)?
 typealias batchUpdates = (() -> Void)?
 typealias completion = (Bool -> Void)?
