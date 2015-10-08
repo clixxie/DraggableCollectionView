@@ -20,8 +20,6 @@
 		57FF2F2D1BC5BB78004A929F /* DraggableCollectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F1D1BC5BB78004A929F /* DraggableCollectionInteractor.swift */; settings = {ASSET_TAGS = (); }; };
 		57FF2F341BC5BCB0004A929F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F331BC5BCB0004A929F /* ViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		57FF2F3D1BC5DC94004A929F /* DraggableCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F371BC5DC94004A929F /* DraggableCollectionPresenter.swift */; settings = {ASSET_TAGS = (); }; };
-		57FF2F3E1BC5DC94004A929F /* DraggableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F3A1BC5DC94004A929F /* DraggableCollectionView.swift */; settings = {ASSET_TAGS = (); }; };
-		57FF2F3F1BC5DC94004A929F /* DraggableCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F3B1BC5DC94004A929F /* DraggableCollectionViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		57FF2F411BC5DCCB004A929F /* DraggableCollectionModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F401BC5DCCB004A929F /* DraggableCollectionModuleInterface.swift */; settings = {ASSET_TAGS = (); }; };
 		57FF2F431BC5E5E8004A929F /* DraggableCollectionInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F421BC5E5E8004A929F /* DraggableCollectionInteractorIO.swift */; settings = {ASSET_TAGS = (); }; };
 		57FF2F451BC62A5D004A929F /* DraggableCollectionUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FF2F441BC62A5D004A929F /* DraggableCollectionUserInterface.swift */; settings = {ASSET_TAGS = (); }; };
@@ -65,8 +63,6 @@
 		57FF2F1D1BC5BB78004A929F /* DraggableCollectionInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionInteractor.swift; sourceTree = "<group>"; };
 		57FF2F331BC5BCB0004A929F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		57FF2F371BC5DC94004A929F /* DraggableCollectionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionPresenter.swift; sourceTree = "<group>"; };
-		57FF2F3A1BC5DC94004A929F /* DraggableCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionView.swift; sourceTree = "<group>"; };
-		57FF2F3B1BC5DC94004A929F /* DraggableCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionViewController.swift; sourceTree = "<group>"; };
 		57FF2F401BC5DCCB004A929F /* DraggableCollectionModuleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionModuleInterface.swift; sourceTree = "<group>"; };
 		57FF2F421BC5E5E8004A929F /* DraggableCollectionInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionInteractorIO.swift; sourceTree = "<group>"; };
 		57FF2F441BC62A5D004A929F /* DraggableCollectionUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCollectionUserInterface.swift; sourceTree = "<group>"; };
@@ -274,8 +270,6 @@
 		57FF2F391BC5DC94004A929F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				57FF2F3A1BC5DC94004A929F /* DraggableCollectionView.swift */,
-				57FF2F3B1BC5DC94004A929F /* DraggableCollectionViewController.swift */,
 				57FF2F441BC62A5D004A929F /* DraggableCollectionUserInterface.swift */,
 			);
 			path = View;
@@ -419,8 +413,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57FF2F3F1BC5DC94004A929F /* DraggableCollectionViewController.swift in Sources */,
-				57FF2F3E1BC5DC94004A929F /* DraggableCollectionView.swift in Sources */,
 				57FF2F2D1BC5BB78004A929F /* DraggableCollectionInteractor.swift in Sources */,
 				57FF2F341BC5BCB0004A929F /* ViewController.swift in Sources */,
 				57FF2F291BC5BB78004A929F /* AppDelegate.swift in Sources */,
