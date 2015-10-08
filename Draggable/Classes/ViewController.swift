@@ -52,7 +52,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // MARK: DraggableCollectionPresenterDelegate
     
     func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, willMoveItemAtIndexPath indexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-        let photo = photos.removeAtIndex(indexPath.row)
+        let photo = photos.removeAtIndex(indexPath.row - 1)
         let index = indexPath.row < toIndexPath.row ? toIndexPath.row - 1 : toIndexPath.row
         photos.insert(photo, atIndex: index)
     }
@@ -64,6 +64,34 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         } else {
             deleteView.backgroundColor = UIColor.blueColor()
         }
+    }
+    
+    func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, releasedMockCell mockCell: UIView, representedByIndexPath indexPath: NSIndexPath) -> (animations, batchUpdates, completion) {
+        
+        let frame = view.convertRect(mockCell.frame, fromView: mockCell.superview)
+        
+        if CGRectIntersectsRect(frame, deleteView.frame) {
+            
+            photos.removeAtIndex(indexPath.row)
+            
+            func batchUpdates() {
+                collectionView.deleteItemsAtIndexPaths([indexPath])
+            }
+                        
+            func animations() {
+                mockCell.frame = CGRectMake(deleteView.center.x, deleteView.center.y, 0.0, 0.0)
+            }
+            
+            func completion(_: Bool) {
+                mockCell.removeFromSuperview()
+                self.deleteView.backgroundColor = UIColor.blueColor()
+            }
+            
+            return (animations, batchUpdates, completion)
+        }
+        
+        return (nil, nil, nil)
+        
     }
     
     func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, releasedMockCell mockCell: UIView, representedByIndexPath indexPath: NSIndexPath) -> Bool {

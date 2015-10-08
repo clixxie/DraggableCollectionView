@@ -12,11 +12,15 @@ protocol DraggableCollectionPresenterDataSource {
     func numberOfElements() -> Int
 }
 
+typealias animations = (() -> Void)?
+typealias batchUpdates = (() -> Void)?
+typealias completion = (Bool -> Void)?
+
 protocol DraggableCollectionPresenterDelegate {
     
     func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, willMoveItemAtIndexPath indexPath: NSIndexPath, toIndexPath: NSIndexPath)
     func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, didMoveMockCellToFrame frame: CGRect, inView: UICollectionView)
-    func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, releasedMockCell mockCell: UIView, representedByIndexPath indexPath: NSIndexPath) -> Bool
+    func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, releasedMockCell mockCell: UIView, representedByIndexPath indexPath: NSIndexPath) -> (animations, batchUpdates, completion)
 }
 
 class DraggableCollectionPresenter: NSObject, DraggableCollectionModuleInterface, DraggableCollectionInteractorOutput {
@@ -66,10 +70,7 @@ class DraggableCollectionPresenter: NSObject, DraggableCollectionModuleInterface
     
     func moveFinshedAtPoint(point: CGPoint, startingIndexPath: NSIndexPath, currentIndexPath: NSIndexPath) {
         
-        let noAdditionalWorkNeeded = delegate?.draggableCollectionModuleInterface(self, releasedMockCell: mockCell!, representedByIndexPath: currentIndexPath)
-        if noAdditionalWorkNeeded! {
-            return
-        }
+        var (animations, batchUpdates, completion) = (delegate?.draggableCollectionModuleInterface(self, releasedMockCell: mockCell!, representedByIndexPath: currentIndexPath))!
         
         var destinationIndexPath: NSIndexPath?
         
@@ -82,26 +83,38 @@ class DraggableCollectionPresenter: NSObject, DraggableCollectionModuleInterface
             destinationIndexPath = startingIndexPath
 
         }
-        
+    
         delegate?.draggableCollectionModuleInterface(self, willMoveItemAtIndexPath: currentIndexPath, toIndexPath: destinationIndexPath!)
         
         let cell = collectionView?.cellForItemAtIndexPath(destinationIndexPath!)
         
-        func animations() {
-            mockCell?.frame = cell!.frame
+        if animations == nil {
+            func defaultAnimations() {
+                mockCell?.frame = cell!.frame
+            }
+            
+            animations = defaultAnimations
         }
         
-        UIView.animateWithDuration(0.3, animations: animations) {
-            finished in
+        if completion == nil {
+            func defaultCompletion( _ : Bool) {
+                self.collectionView?.cellForItemAtIndexPath(destinationIndexPath!)?.hidden = false
+                
+                self.mockCell?.removeFromSuperview()
+                self.mockCell = nil
+            }
             
-            self.collectionView?.cellForItemAtIndexPath(destinationIndexPath!)?.hidden = false
-            
-            self.mockCell?.removeFromSuperview()
-            self.mockCell = nil
+            completion = defaultCompletion
         }
         
-        func batchUpdates() {
-            collectionView?.moveItemAtIndexPath(currentIndexPath, toIndexPath: destinationIndexPath!)
+        UIView.animateWithDuration(0.3, animations: animations!, completion: completion)
+        
+        if batchUpdates == nil {
+            func defaultBatchUpdates() {
+                collectionView?.moveItemAtIndexPath(currentIndexPath, toIndexPath: destinationIndexPath!)
+            }
+            
+            batchUpdates = defaultBatchUpdates
         }
         
         collectionView?.performBatchUpdates(batchUpdates, completion: nil)
