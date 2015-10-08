@@ -10,7 +10,7 @@ import UIKit
 
 class DraggableCollectionWireframe: NSObject {
 
-    func addFunctionalityToCollectionView(collectionView: UICollectionView, delegate: DraggableCollectionPresenterDelegate) -> DraggableCollectionPresenter {
+    func addFunctionalityToCollectionView(collectionView: UICollectionView, delegate: DraggableCollectionPresenterDelegate) -> DraggableCollectionModuleInterface {
         
         let presenter = DraggableCollectionPresenter()
         presenter.delegate = delegate

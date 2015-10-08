@@ -170,6 +170,8 @@ class DragGestureRecognizer: UIGestureRecognizer {
             
         case ( .Possible , .Moved ):
             
+            translationPoint = touch.location
+            
             let startX = startingPoint.x
             let startY = startingPoint.y
             

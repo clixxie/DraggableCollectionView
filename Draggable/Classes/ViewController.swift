@@ -20,9 +20,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var deleteView: UIView!
     
-    var presenter: DraggableCollectionPresenter?
+    var presenter: DraggableCollectionModuleInterface?
     
-    lazy var photos = [Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor()), Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor()), Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor())]
+    lazy var photos = [Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor()), Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor()), Photo(color: UIColor.redColor()), Photo(color: UIColor.greenColor()), Photo(color: UIColor.purpleColor()), Photo(color: UIColor.orangeColor()), Photo(color: UIColor.cyanColor()), Photo(color: UIColor.magentaColor()), Photo(color: UIColor.blackColor())]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +30,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let draggableCollectionWireframe = DraggableCollectionWireframe()
         presenter = draggableCollectionWireframe.addFunctionalityToCollectionView(collectionView, delegate: self)
     }
+    
+    // MARK: UICollectionViewDataSource
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
@@ -47,37 +49,51 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         return cell
     }
     
-    func moveElementFromIndex(index: Int, toIndex: Int) {
-        let photo = photos.removeAtIndex(index)
-        let revisedIndex = index < toIndex ? toIndex - 1 : toIndex
-        photos.insert(photo, atIndex: revisedIndex)
+    // MARK: DraggableCollectionPresenterDelegate
+    
+    func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, willMoveItemAtIndexPath indexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+        let photo = photos.removeAtIndex(indexPath.row)
+        let index = indexPath.row < toIndexPath.row ? toIndexPath.row - 1 : toIndexPath.row
+        photos.insert(photo, atIndex: index)
+    }
+
+    func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, didMoveMockCellToFrame frame: CGRect, inView: UICollectionView) {
+        let adjustedFrame = view.convertRect(frame, fromView: inView)
+        if CGRectIntersectsRect(adjustedFrame, deleteView.frame) {
+            deleteView.backgroundColor = UIColor.yellowColor()
+        } else {
+            deleteView.backgroundColor = UIColor.blueColor()
+        }
     }
     
-//    func customAnimationForDraggableCollectionViewController(viewController: DraggableCollectionViewController, snapshot: UIView, indexPath: NSIndexPath) -> Bool {
-//        
-//        if CGRectIntersectsRect(deleteView.frame, viewController.collectionView.convertRect(snapshot.frame, toView: view)) {
-//            
-//            if let hiddenCell = viewController.collectionView.cellForItemAtIndexPath(indexPath) {
-//                let photo = photos.removeAtIndex(indexPath.row)
-//                viewController.items = photos
-//                
-//                func batchUpdates() {
-//                    viewController.collectionView.deleteItemsAtIndexPaths([indexPath])
-//                }
-//
-//                viewController.collectionView.performBatchUpdates(batchUpdates) {
-//                    finished in
-//                }
-//                
-//                snapshot.removeFromSuperview()
-//                deleteView.backgroundColor = UIColor.blueColor()
-//            }
-//            
-//            return true
-//        } else {
-//            return false
-//        }
-//        
-//    }
+    func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, releasedMockCell mockCell: UIView, representedByIndexPath indexPath: NSIndexPath) -> Bool {
+        let frame = view.convertRect(mockCell.frame, fromView: mockCell.superview)
+        
+        if CGRectIntersectsRect(frame, deleteView.frame) {
+            
+            photos.removeAtIndex(indexPath.row)
+            
+            func batchUpdates() {
+                collectionView.deleteItemsAtIndexPaths([indexPath])
+            }
+            
+            collectionView.performBatchUpdates(batchUpdates, completion: nil)
+            
+            func animations() {
+                mockCell.frame = CGRectMake(deleteView.center.x, deleteView.center.y, 0.0, 0.0)
+            }
+            
+            UIView.animateWithDuration(0.3, animations: animations) {
+                finished in
+                
+                mockCell.removeFromSuperview()
+                self.deleteView.backgroundColor = UIColor.blueColor()
+            }
+            
+            return true
+        } else {
+            return false
+        }
+    }
     
 }

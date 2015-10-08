@@ -10,7 +10,7 @@ import UIKit
 
 protocol DraggableCollectionInteractorInput {
         
-    func dragRecognized(gesture: DragGestureRecognizer, atIndexPath: NSIndexPath?)
+    func processDragGesture(gesture: DragGestureRecognizer, atIndexPath: NSIndexPath?)
 }
 
 protocol DraggableCollectionInteractorOutput {

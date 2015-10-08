@@ -16,7 +16,7 @@ class DraggableCollectionInteractor: NSObject, DraggableCollectionInteractorInpu
     var currentIndexPath: NSIndexPath?
     
     
-    func dragRecognized(gesture: DragGestureRecognizer, atIndexPath indexPath: NSIndexPath?) {
+    func processDragGesture(gesture: DragGestureRecognizer, atIndexPath indexPath: NSIndexPath?) {
         switch gesture.state {
         case .Began:
 

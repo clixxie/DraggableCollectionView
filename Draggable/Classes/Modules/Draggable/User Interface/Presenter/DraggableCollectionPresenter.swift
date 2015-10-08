@@ -13,7 +13,10 @@ protocol DraggableCollectionPresenterDataSource {
 }
 
 protocol DraggableCollectionPresenterDelegate {
-    func moveElementFromIndex(index: Int, toIndex: Int)
+    
+    func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, willMoveItemAtIndexPath indexPath: NSIndexPath, toIndexPath: NSIndexPath)
+    func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, didMoveMockCellToFrame frame: CGRect, inView: UICollectionView)
+    func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, releasedMockCell mockCell: UIView, representedByIndexPath indexPath: NSIndexPath) -> Bool
 }
 
 class DraggableCollectionPresenter: NSObject, DraggableCollectionModuleInterface, DraggableCollectionInteractorOutput {
@@ -38,8 +41,10 @@ class DraggableCollectionPresenter: NSObject, DraggableCollectionModuleInterface
         let point = gesture.locationInView(collectionView)
         let indexPath = collectionView?.indexPathForItemAtPoint(point)
         
-        draggableCollectionInteractor.dragRecognized(gesture, atIndexPath: indexPath)
+        draggableCollectionInteractor.processDragGesture(gesture, atIndexPath: indexPath)
     }
+    
+    // MARK: DraggableCollectionInteractorOutput
     
     func moveStartedAtIndexPath(indexPath: NSIndexPath) {
         
@@ -61,11 +66,16 @@ class DraggableCollectionPresenter: NSObject, DraggableCollectionModuleInterface
     
     func moveFinshedAtPoint(point: CGPoint, startingIndexPath: NSIndexPath, currentIndexPath: NSIndexPath) {
         
+        let noAdditionalWorkNeeded = delegate?.draggableCollectionModuleInterface(self, releasedMockCell: mockCell!, representedByIndexPath: currentIndexPath)
+        if noAdditionalWorkNeeded! {
+            return
+        }
+        
         var destinationIndexPath: NSIndexPath?
         
-        if let currentIndexPath = collectionView?.indexPathForItemAtPoint(point) {
+        if let indexPathForPoint = collectionView?.indexPathForItemAtPoint(point) {
             
-            destinationIndexPath = currentIndexPath
+            destinationIndexPath = indexPathForPoint
             
         } else {
             
@@ -73,7 +83,7 @@ class DraggableCollectionPresenter: NSObject, DraggableCollectionModuleInterface
 
         }
         
-        delegate!.moveElementFromIndex(currentIndexPath.row, toIndex: destinationIndexPath!.row)
+        delegate?.draggableCollectionModuleInterface(self, willMoveItemAtIndexPath: currentIndexPath, toIndexPath: destinationIndexPath!)
         
         let cell = collectionView?.cellForItemAtIndexPath(destinationIndexPath!)
         
@@ -100,7 +110,7 @@ class DraggableCollectionPresenter: NSObject, DraggableCollectionModuleInterface
     
     func moveFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
     
-        delegate!.moveElementFromIndex(fromIndexPath.row, toIndex: toIndexPath.row)
+        delegate?.draggableCollectionModuleInterface(self, willMoveItemAtIndexPath: fromIndexPath, toIndexPath: toIndexPath)
         
         func dragItem() {
             collectionView?.moveItemAtIndexPath(fromIndexPath, toIndexPath: toIndexPath)
@@ -117,10 +127,9 @@ class DraggableCollectionPresenter: NSObject, DraggableCollectionModuleInterface
         let height = CGRectGetHeight(mockCell!.frame)
         
         mockCell!.frame = CGRectMake(x, y, width, height)
-            
-//            let rect = view.convertRect(snapshot.frame, toView: view.superview?.superview)
-//            
-//            delegate?.draggableCollectionViewController(self, movedToRect: rect)
+        
+        delegate?.draggableCollectionModuleInterface(self, didMoveMockCellToFrame: mockCell!.frame, inView: collectionView!)
+        
     }
     
     func numberOfElements() -> Int {
