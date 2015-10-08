@@ -16,7 +16,7 @@ protocol DraggableCollectionPresenterDelegate {
     
     func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, willMoveItemAtIndexPath indexPath: NSIndexPath, toIndexPath: NSIndexPath)
     func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, didMoveMockCellToFrame frame: CGRect, inView: UICollectionView)
-    func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, releasedMockCell mockCell: UIView, representedByIndexPath indexPath: NSIndexPath) -> (animations, batchUpdates, completion)
+    func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, customLogicForReleasedMockCell mockCell: UIView, representedByIndexPath indexPath: NSIndexPath, originIndexPath: NSIndexPath) -> (animations, batchUpdates, completion)
 }
 
 class DraggableCollectionPresenter: NSObject, DraggableCollectionModuleInterface, DraggableCollectionInteractorOutput {
@@ -66,7 +66,7 @@ class DraggableCollectionPresenter: NSObject, DraggableCollectionModuleInterface
     
     func moveFinshedAtPoint(point: CGPoint, startingIndexPath: NSIndexPath, currentIndexPath: NSIndexPath) {
         
-        var (animations, batchUpdates, completion) = (delegate?.draggableCollectionModuleInterface(self, releasedMockCell: mockCell!, representedByIndexPath: currentIndexPath))!
+        var (animations, batchUpdates, completion) = (delegate?.draggableCollectionModuleInterface(self, customLogicForReleasedMockCell: mockCell!, representedByIndexPath: currentIndexPath, originIndexPath: startingIndexPath))!
         
         var destinationIndexPath: NSIndexPath?
         

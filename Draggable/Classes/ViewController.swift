@@ -66,7 +66,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
     }
     
-    func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, releasedMockCell mockCell: UIView, representedByIndexPath indexPath: NSIndexPath) -> (animations, batchUpdates, completion) {
+    func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, customLogicForReleasedMockCell mockCell: UIView, representedByIndexPath indexPath: NSIndexPath, originIndexPath: NSIndexPath) -> (animations, batchUpdates, completion) {
         
         let frame = view.convertRect(mockCell.frame, fromView: mockCell.superview)
         
@@ -88,40 +88,30 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             }
             
             return (animations, batchUpdates, completion)
+        } else if photos.count < 20 && indexPath.row == photos.count - 1 {
+            
+            let photo = photos.removeLast()
+            photos.insert(photo, atIndex: originIndexPath.row)
+            
+            func batchUpdates() {
+                collectionView.moveItemAtIndexPath(indexPath, toIndexPath: originIndexPath)
+            }
+            
+            func animations() {
+                mockCell.frame = (collectionView.cellForItemAtIndexPath(originIndexPath)?.frame)!
+            }
+            
+            func completion(_: Bool) {
+                collectionView.cellForItemAtIndexPath(originIndexPath)?.hidden = false
+                
+                mockCell.removeFromSuperview()
+            }
+            
+            return (animations, batchUpdates, completion)
         }
         
         return (nil, nil, nil)
         
-    }
-    
-    func draggableCollectionModuleInterface(moduleInterface: DraggableCollectionModuleInterface, releasedMockCell mockCell: UIView, representedByIndexPath indexPath: NSIndexPath) -> Bool {
-        let frame = view.convertRect(mockCell.frame, fromView: mockCell.superview)
-        
-        if CGRectIntersectsRect(frame, deleteView.frame) {
-            
-            photos.removeAtIndex(indexPath.row)
-            
-            func batchUpdates() {
-                collectionView.deleteItemsAtIndexPaths([indexPath])
-            }
-            
-            collectionView.performBatchUpdates(batchUpdates, completion: nil)
-            
-            func animations() {
-                mockCell.frame = CGRectMake(deleteView.center.x, deleteView.center.y, 0.0, 0.0)
-            }
-            
-            UIView.animateWithDuration(0.3, animations: animations) {
-                finished in
-                
-                mockCell.removeFromSuperview()
-                self.deleteView.backgroundColor = UIColor.blueColor()
-            }
-            
-            return true
-        } else {
-            return false
-        }
     }
     
 }
